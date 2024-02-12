@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_articles_tablicza",
+  "info": {
+    "displayName": "Таблица",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "h4": {
+      "type": "string"
+    }
+  }
+}

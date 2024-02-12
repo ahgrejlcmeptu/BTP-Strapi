@@ -4,7 +4,7 @@
   "info": {
     "singularName": "article",
     "pluralName": "articles",
-    "displayName": "article",
+    "displayName": "Новости",
     "description": ""
   },
   "options": {
@@ -12,28 +12,17 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "title": {
-      "type": "string",
-      "required": true
+    "Card": {
+      "type": "component",
+      "repeatable": false,
+      "component": "cards.novosti"
     },
-    "date": {
-      "type": "date"
-    },
-    "img": {
-      "type": "media",
-      "multiple": true,
-      "required": true,
-      "allowedTypes": [
-        "images"
-      ]
-    },
-    "category": {
-      "type": "enumeration",
-      "enum": [
-        "наши новости",
-        "тех. работы",
-        "акции",
-        "абонентам"
+    "Page": {
+      "type": "dynamiczone",
+      "components": [
+        "articles.shapka",
+        "articles.slajder",
+        "articles.tablicza"
       ]
     }
   }

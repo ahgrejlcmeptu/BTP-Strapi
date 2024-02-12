@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_articles_shapka",
+  "info": {
+    "displayName": "Шапка",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "img": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "textWidth": {
+      "type": "blocks"
+    },
+    "textColumn": {
+      "type": "blocks"
+    }
+  }
+}

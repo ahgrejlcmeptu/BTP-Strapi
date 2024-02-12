@@ -1,0 +1,36 @@
+{
+  "collectionName": "components_cards_novosti",
+  "info": {
+    "displayName": "Новости"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "date": {
+      "type": "date",
+      "required": false
+    },
+    "img": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "наши новости",
+        "тех. работы",
+        "акции",
+        "абонентам"
+      ],
+      "required": false,
+      "default": "наши новости"
+    }
+  }
+}

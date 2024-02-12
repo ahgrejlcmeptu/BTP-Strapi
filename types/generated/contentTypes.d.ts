@@ -367,23 +367,16 @@ export interface ApiArticleArticle extends Schema.CollectionType {
   info: {
     singularName: 'article';
     pluralName: 'articles';
-    displayName: 'article';
+    displayName: '\u041D\u043E\u0432\u043E\u0441\u0442\u0438';
     description: '';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
-    title: Attribute.String & Attribute.Required;
-    date: Attribute.Date;
-    img: Attribute.Media & Attribute.Required;
-    category: Attribute.Enumeration<
-      [
-        '\u043D\u0430\u0448\u0438 \u043D\u043E\u0432\u043E\u0441\u0442\u0438',
-        '\u0442\u0435\u0445. \u0440\u0430\u0431\u043E\u0442\u044B',
-        '\u0430\u043A\u0446\u0438\u0438',
-        '\u0430\u0431\u043E\u043D\u0435\u043D\u0442\u0430\u043C'
-      ]
+    Card: Attribute.Component<'cards.novosti'>;
+    Page: Attribute.DynamicZone<
+      ['articles.shapka', 'articles.slajder', 'articles.tablicza']
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
