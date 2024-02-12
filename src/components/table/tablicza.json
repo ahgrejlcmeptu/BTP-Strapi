@@ -1,15 +1,25 @@
 {
   "collectionName": "components_table_tablicza",
   "info": {
-    "displayName": "Таблица"
+    "displayName": "Таблица",
+    "description": ""
   },
   "options": {},
   "attributes": {
-    "head": {
+    "title": {
+      "type": "string"
+    },
+    "header": {
       "displayName": "Шапка",
       "type": "component",
       "repeatable": true,
       "component": "table.shapka"
+    },
+    "row": {
+      "displayName": "Тело",
+      "type": "component",
+      "repeatable": true,
+      "component": "table.telo"
     }
   }
 }

@@ -1,7 +1,8 @@
 {
   "collectionName": "components_cards_novosti",
   "info": {
-    "displayName": "Новости"
+    "displayName": "Новости",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -14,12 +15,12 @@
       "required": false
     },
     "img": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": false,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "category": {
       "type": "enumeration",

@@ -8,6 +8,16 @@
   "attributes": {
     "h4": {
       "type": "string"
+    },
+    "th": {
+      "type": "component",
+      "repeatable": true,
+      "component": "table.shapka"
+    },
+    "row": {
+      "type": "component",
+      "repeatable": true,
+      "component": "table.telo"
     }
   }
 }

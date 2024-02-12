@@ -21,7 +21,7 @@ module.exports = createCoreService('api::article.article', {
   },
   async findOne(ctx) {
     const article = await strapi.query('api::article.article').findOne({
-      populate: ['Page', 'Page.img'],
+      populate: ['Page', 'Page.img', 'Page.th', 'Page.row'],
       where: {id: ctx.request.params.id}
     });
 
