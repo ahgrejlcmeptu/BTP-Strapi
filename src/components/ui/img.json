@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_ui_imgs",
+  "info": {
+    "displayName": "img"
+  },
+  "options": {},
+  "attributes": {
+    "size": {
+      "type": "biginteger"
+    },
+    "img": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

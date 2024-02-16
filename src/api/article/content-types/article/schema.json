@@ -8,22 +8,15 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": false
+    "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "Card": {
+    "card": {
+      "displayName": "card",
       "type": "component",
       "repeatable": false,
-      "component": "cards.novosti"
-    },
-    "Page": {
-      "type": "dynamiczone",
-      "components": [
-        "articles.shapka",
-        "articles.slajder",
-        "articles.tablicza"
-      ]
+      "component": "cards.card"
     }
   }
 }

@@ -1,113 +1,68 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
-export interface ArticlesShapka extends Schema.Component {
-  collectionName: 'components_articles_shapka';
+export interface BlocksBanner extends Schema.Component {
+  collectionName: 'components_blocks_banners';
   info: {
-    displayName: '\u0428\u0430\u043F\u043A\u0430';
+    displayName: 'Banner';
     description: '';
   };
   attributes: {
     title: Attribute.String;
-    img: Attribute.Media;
-    description: Attribute.Blocks;
-    textWidth: Attribute.Blocks;
-    textColumn: Attribute.Blocks;
+    text: Attribute.String;
+    form: Attribute.Boolean & Attribute.Required & Attribute.DefaultTo<false>;
+    button: Attribute.Component<'ui.button'>;
+    img: Attribute.Component<'ui.img', true>;
+    fon: Attribute.Media;
   };
 }
 
-export interface ArticlesSlajder extends Schema.Component {
-  collectionName: 'components_articles_slajder';
+export interface CardsCard extends Schema.Component {
+  collectionName: 'components_article_cards';
   info: {
-    displayName: '\u0421\u043B\u0430\u0439\u0434\u0435\u0440';
+    displayName: 'article';
     description: '';
   };
   attributes: {
     title: Attribute.String;
-    subtitle: Attribute.String;
-    img: Attribute.Media;
-  };
-}
-
-export interface ArticlesTablicza extends Schema.Component {
-  collectionName: 'components_articles_tablicza';
-  info: {
-    displayName: '\u0422\u0430\u0431\u043B\u0438\u0446\u0430';
-    description: '';
-  };
-  attributes: {
-    h4: Attribute.String;
-    th: Attribute.Component<'table.shapka', true>;
-    row: Attribute.Component<'table.telo', true>;
-  };
-}
-
-export interface CardsNovosti extends Schema.Component {
-  collectionName: 'components_cards_novosti';
-  info: {
-    displayName: '\u041D\u043E\u0432\u043E\u0441\u0442\u0438';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String & Attribute.Required;
     date: Attribute.Date;
-    img: Attribute.Media & Attribute.Required;
-    category: Attribute.Enumeration<
-      [
-        '\u043D\u0430\u0448\u0438 \u043D\u043E\u0432\u043E\u0441\u0442\u0438',
-        '\u0442\u0435\u0445. \u0440\u0430\u0431\u043E\u0442\u044B',
-        '\u0430\u043A\u0446\u0438\u0438',
-        '\u0430\u0431\u043E\u043D\u0435\u043D\u0442\u0430\u043C'
-      ]
-    > &
-      Attribute.DefaultTo<'\u043D\u0430\u0448\u0438 \u043D\u043E\u0432\u043E\u0441\u0442\u0438'>;
+    img: Attribute.Media;
+    category: Attribute.Relation<
+      'cards.card',
+      'oneToOne',
+      'api::article-category.article-category'
+    >;
   };
 }
 
-export interface TableShapka extends Schema.Component {
-  collectionName: 'components_table_shapka';
+export interface UiButton extends Schema.Component {
+  collectionName: 'components_ui_buttons';
   info: {
-    displayName: '\u0428\u0430\u043F\u043A\u0430';
-    description: '';
+    displayName: 'Button';
   };
   attributes: {
-    title: Attribute.String;
+    text: Attribute.String;
+    link: Attribute.String;
   };
 }
 
-export interface TableTablicza extends Schema.Component {
-  collectionName: 'components_table_tablicza';
+export interface UiImg extends Schema.Component {
+  collectionName: 'components_ui_imgs';
   info: {
-    displayName: '\u0422\u0430\u0431\u043B\u0438\u0446\u0430';
-    description: '';
+    displayName: 'img';
   };
   attributes: {
-    title: Attribute.String;
-    header: Attribute.Component<'table.shapka', true>;
-    row: Attribute.Component<'table.telo', true>;
-  };
-}
-
-export interface TableTelo extends Schema.Component {
-  collectionName: 'components_table_telo';
-  info: {
-    displayName: '\u0422\u0435\u043B\u043E';
-    description: '';
-  };
-  attributes: {
-    row: Attribute.Blocks;
+    size: Attribute.BigInteger;
+    img: Attribute.Media;
   };
 }
 
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
-      'articles.shapka': ArticlesShapka;
-      'articles.slajder': ArticlesSlajder;
-      'articles.tablicza': ArticlesTablicza;
-      'cards.novosti': CardsNovosti;
-      'table.shapka': TableShapka;
-      'table.tablicza': TableTablicza;
-      'table.telo': TableTelo;
+      'blocks.banner': BlocksBanner;
+      'cards.card': CardsCard;
+      'ui.button': UiButton;
+      'ui.img': UiImg;
     }
   }
 }

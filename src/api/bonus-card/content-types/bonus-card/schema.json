@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "bonus_cards",
+  "info": {
+    "singularName": "bonus-card",
+    "pluralName": "bonus-cards",
+    "displayName": "Бонусы",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "img": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "label": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    },
+    "dateBefore": {
+      "type": "date"
+    },
+    "dateAfter": {
+      "type": "date"
+    },
+    "activete": {
+      "type": "blocks"
+    },
+    "partners": {
+      "type": "blocks"
+    },
+    "btn": {
+      "type": "biginteger"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::category-bonus.category-bonus",
+      "mappedBy": "bonusies"
+    }
+  }
+}

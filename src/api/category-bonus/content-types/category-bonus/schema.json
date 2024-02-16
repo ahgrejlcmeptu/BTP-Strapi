@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "category_bonuses",
+  "info": {
+    "singularName": "category-bonus",
+    "pluralName": "category-bonuses",
+    "displayName": "Категории бонусов",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "bonusies": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::bonus-card.bonus-card",
+      "inversedBy": "categories"
+    }
+  }
+}
