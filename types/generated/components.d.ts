@@ -62,6 +62,54 @@ export interface HelpOne extends Schema.Component {
   };
 }
 
+export interface HelpPlateColumn extends Schema.Component {
+  collectionName: 'components_help_plate_columns';
+  info: {
+    displayName: 'plateColumn';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Blocks;
+  };
+}
+
+export interface HelpPlate extends Schema.Component {
+  collectionName: 'components_help_plates';
+  info: {
+    displayName: 'plate';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Blocks;
+  };
+}
+
+export interface HelpSlide extends Schema.Component {
+  collectionName: 'components_help_slides';
+  info: {
+    displayName: 'slide';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Blocks;
+    slide: Attribute.Component<'ui.slide', true>;
+  };
+}
+
+export interface HelpTwo extends Schema.Component {
+  collectionName: 'components_help_twos';
+  info: {
+    displayName: 'two';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Blocks;
+  };
+}
+
 export interface UiButton extends Schema.Component {
   collectionName: 'components_ui_buttons';
   info: {
@@ -70,6 +118,17 @@ export interface UiButton extends Schema.Component {
   attributes: {
     text: Attribute.String;
     link: Attribute.String;
+  };
+}
+
+export interface UiColumn extends Schema.Component {
+  collectionName: 'components_ui_columns';
+  info: {
+    displayName: 'column';
+  };
+  attributes: {
+    th: Attribute.String;
+    tr: Attribute.Component<'ui.tr', true>;
   };
 }
 
@@ -84,6 +143,37 @@ export interface UiImg extends Schema.Component {
   };
 }
 
+export interface UiSlide extends Schema.Component {
+  collectionName: 'components_ui_slides';
+  info: {
+    displayName: 'slide';
+  };
+  attributes: {
+    img: Attribute.Media;
+    poster: Attribute.Media;
+    video: Attribute.Media;
+    youtube: Attribute.String;
+  };
+}
+
+export interface UiTable extends Schema.Component {
+  collectionName: 'components_ui_tables';
+  info: {
+    displayName: 'table';
+  };
+  attributes: {};
+}
+
+export interface UiTr extends Schema.Component {
+  collectionName: 'components_ui_trs';
+  info: {
+    displayName: 'tr';
+  };
+  attributes: {
+    td: Attribute.Blocks;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
@@ -91,8 +181,16 @@ declare module '@strapi/types' {
       'cards.card': CardsCard;
       'help.card': HelpCard;
       'help.one': HelpOne;
+      'help.plate-column': HelpPlateColumn;
+      'help.plate': HelpPlate;
+      'help.slide': HelpSlide;
+      'help.two': HelpTwo;
       'ui.button': UiButton;
+      'ui.column': UiColumn;
       'ui.img': UiImg;
+      'ui.slide': UiSlide;
+      'ui.table': UiTable;
+      'ui.tr': UiTr;
     }
   }
 }

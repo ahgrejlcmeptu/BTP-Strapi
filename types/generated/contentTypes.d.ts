@@ -968,7 +968,11 @@ export interface ApiHelpHelp extends Schema.CollectionType {
   };
   attributes: {
     card: Attribute.Component<'help.card'>;
-    page: Attribute.DynamicZone<['help.one']>;
+    page: Attribute.DynamicZone<
+      ['help.one', 'help.two', 'help.slide', 'help.plate', 'help.plate-column']
+    >;
+    banner: Attribute.Component<'blocks.banner', true>;
+    column: Attribute.Component<'ui.column', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

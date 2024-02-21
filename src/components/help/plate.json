@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_help_plates",
+  "info": {
+    "displayName": "plate",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "blocks"
+    }
+  }
+}

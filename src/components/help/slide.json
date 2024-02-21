@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_help_slides",
+  "info": {
+    "displayName": "slide",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "slide": {
+      "type": "component",
+      "repeatable": true,
+      "component": "ui.slide"
+    }
+  }
+}

@@ -21,8 +21,22 @@
     "page": {
       "type": "dynamiczone",
       "components": [
-        "help.one"
+        "help.one",
+        "help.two",
+        "help.slide",
+        "help.plate",
+        "help.plate-column"
       ]
+    },
+    "banner": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.banner"
+    },
+    "column": {
+      "type": "component",
+      "repeatable": true,
+      "component": "ui.column"
     }
   }
 }

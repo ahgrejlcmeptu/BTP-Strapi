@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_help_twos",
+  "info": {
+    "displayName": "two",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "blocks"
+    }
+  }
+}

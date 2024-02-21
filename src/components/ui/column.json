@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_ui_columns",
+  "info": {
+    "displayName": "column"
+  },
+  "options": {},
+  "attributes": {
+    "th": {
+      "type": "string"
+    },
+    "tr": {
+      "displayName": "tr",
+      "type": "component",
+      "repeatable": true,
+      "component": "ui.tr"
+    }
+  }
+}

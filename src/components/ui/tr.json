@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_ui_trs",
+  "info": {
+    "displayName": "tr"
+  },
+  "options": {},
+  "attributes": {
+    "td": {
+      "type": "blocks"
+    }
+  }
+}
