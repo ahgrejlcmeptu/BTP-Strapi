@@ -1,0 +1,31 @@
+{
+  "kind": "singleType",
+  "collectionName": "personal_pages",
+  "info": {
+    "singularName": "personal-page",
+    "pluralName": "personal-pages",
+    "displayName": "Страница Личные данные",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "banner1": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.banner"
+    },
+    "banner2": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.banner"
+    },
+    "tied": {
+      "type": "component",
+      "repeatable": false,
+      "component": "blocks.banner"
+    }
+  }
+}

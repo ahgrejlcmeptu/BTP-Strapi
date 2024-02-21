@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_help_ones",
+  "info": {
+    "displayName": "one"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "blocks"
+    }
+  }
+}

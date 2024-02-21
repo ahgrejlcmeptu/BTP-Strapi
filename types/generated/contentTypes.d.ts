@@ -892,7 +892,7 @@ export interface ApiBonusPageBonusPage extends Schema.SingleType {
   info: {
     singularName: 'bonus-page';
     pluralName: 'bonus-pages';
-    displayName: 'BonusPage';
+    displayName: '\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430 \u0411\u043E\u043D\u0443\u0441\u044B';
     description: '';
   };
   options: {
@@ -900,8 +900,8 @@ export interface ApiBonusPageBonusPage extends Schema.SingleType {
   };
   attributes: {
     title: Attribute.String;
-    description: Attribute.Blocks;
     banner: Attribute.Component<'blocks.banner'>;
+    description: Attribute.Blocks;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -955,6 +955,124 @@ export interface ApiCategoryBonusCategoryBonus extends Schema.CollectionType {
   };
 }
 
+export interface ApiHelpHelp extends Schema.CollectionType {
+  collectionName: 'helps';
+  info: {
+    singularName: 'help';
+    pluralName: 'helps';
+    displayName: '\u041F\u043E\u043C\u043E\u0449\u044C';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    card: Attribute.Component<'help.card'>;
+    page: Attribute.DynamicZone<['help.one']>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::help.help', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::help.help', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiHelpCategoryHelpCategory extends Schema.CollectionType {
+  collectionName: 'help_categories';
+  info: {
+    singularName: 'help-category';
+    pluralName: 'help-categories';
+    displayName: '\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438 \u043F\u043E\u043C\u043E\u0449\u0438';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    title: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::help-category.help-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::help-category.help-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiHomePageHomePage extends Schema.SingleType {
+  collectionName: 'home_pages';
+  info: {
+    singularName: 'home-page';
+    pluralName: 'home-pages';
+    displayName: '\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430 \u0413\u043B\u0430\u0432\u043D\u0430\u044F';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    banner: Attribute.Component<'blocks.banner', true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::home-page.home-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::home-page.home-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPersonalPagePersonalPage extends Schema.SingleType {
+  collectionName: 'personal_pages';
+  info: {
+    singularName: 'personal-page';
+    pluralName: 'personal-pages';
+    displayName: '\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430 \u041B\u0438\u0447\u043D\u044B\u0435 \u0434\u0430\u043D\u043D\u044B\u0435';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    banner1: Attribute.Component<'blocks.banner', true>;
+    banner2: Attribute.Component<'blocks.banner', true>;
+    tied: Attribute.Component<'blocks.banner'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::personal-page.personal-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::personal-page.personal-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -978,6 +1096,10 @@ declare module '@strapi/types' {
       'api::bonus-card.bonus-card': ApiBonusCardBonusCard;
       'api::bonus-page.bonus-page': ApiBonusPageBonusPage;
       'api::category-bonus.category-bonus': ApiCategoryBonusCategoryBonus;
+      'api::help.help': ApiHelpHelp;
+      'api::help-category.help-category': ApiHelpCategoryHelpCategory;
+      'api::home-page.home-page': ApiHomePageHomePage;
+      'api::personal-page.personal-page': ApiPersonalPagePersonalPage;
     }
   }
 }

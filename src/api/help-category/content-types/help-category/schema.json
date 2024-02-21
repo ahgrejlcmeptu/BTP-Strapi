@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "help_categories",
+  "info": {
+    "singularName": "help-category",
+    "pluralName": "help-categories",
+    "displayName": "Категории помощи",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    }
+  }
+}

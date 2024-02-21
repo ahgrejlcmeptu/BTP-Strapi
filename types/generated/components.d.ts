@@ -34,6 +34,34 @@ export interface CardsCard extends Schema.Component {
   };
 }
 
+export interface HelpCard extends Schema.Component {
+  collectionName: 'components_help_cards';
+  info: {
+    displayName: 'card';
+    description: '';
+  };
+  attributes: {
+    category: Attribute.Relation<
+      'help.card',
+      'oneToOne',
+      'api::help-category.help-category'
+    >;
+    title: Attribute.String;
+    description: Attribute.Blocks;
+  };
+}
+
+export interface HelpOne extends Schema.Component {
+  collectionName: 'components_help_ones';
+  info: {
+    displayName: 'one';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Blocks;
+  };
+}
+
 export interface UiButton extends Schema.Component {
   collectionName: 'components_ui_buttons';
   info: {
@@ -61,6 +89,8 @@ declare module '@strapi/types' {
     export interface Components {
       'blocks.banner': BlocksBanner;
       'cards.card': CardsCard;
+      'help.card': HelpCard;
+      'help.one': HelpOne;
       'ui.button': UiButton;
       'ui.img': UiImg;
     }

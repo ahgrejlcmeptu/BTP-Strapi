@@ -1,5 +1,7 @@
 'use strict';
-
+// const strapiRichTextToHtml = require('strapi-plugin-rich-text-to-html');
+// const { richTextFromMarkdown } = require('@contentful/rich-text-from-markdown');
+const {renderBlock} = require('blocks-html-renderer')
 /**
  * bonus-page service
  */
@@ -20,6 +22,6 @@ module.exports = createCoreService('api::bonus-page.bonus-page', {
 
     const EditBanner = {title: banner.title, text: banner.text, button, fon: banner.fon.url, img}
 
-    return {id, title, description, banner: EditBanner}
+    return {id, title, description: renderBlock(data.description), banner: EditBanner}
   },
 });

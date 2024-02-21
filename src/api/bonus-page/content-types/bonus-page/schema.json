@@ -4,7 +4,7 @@
   "info": {
     "singularName": "bonus-page",
     "pluralName": "bonus-pages",
-    "displayName": "BonusPage",
+    "displayName": "Страница Бонусы",
     "description": ""
   },
   "options": {
@@ -15,13 +15,13 @@
     "title": {
       "type": "string"
     },
-    "description": {
-      "type": "blocks"
-    },
     "banner": {
       "type": "component",
       "repeatable": false,
       "component": "blocks.banner"
+    },
+    "description": {
+      "type": "blocks"
     }
   }
 }

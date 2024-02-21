@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "helps",
+  "info": {
+    "singularName": "help",
+    "pluralName": "helps",
+    "displayName": "Помощь",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "card": {
+      "displayName": "card",
+      "type": "component",
+      "repeatable": false,
+      "component": "help.card"
+    },
+    "page": {
+      "type": "dynamiczone",
+      "components": [
+        "help.one"
+      ]
+    }
+  }
+}
