@@ -143,6 +143,17 @@ export interface UiImg extends Schema.Component {
   };
 }
 
+export interface UiReviews extends Schema.Component {
+  collectionName: 'components_ui_reviews';
+  info: {
+    displayName: 'reviews';
+  };
+  attributes: {
+    like: Attribute.BigInteger;
+    dislike: Attribute.BigInteger;
+  };
+}
+
 export interface UiSlide extends Schema.Component {
   collectionName: 'components_ui_slides';
   info: {
@@ -188,6 +199,7 @@ declare module '@strapi/types' {
       'ui.button': UiButton;
       'ui.column': UiColumn;
       'ui.img': UiImg;
+      'ui.reviews': UiReviews;
       'ui.slide': UiSlide;
       'ui.table': UiTable;
       'ui.tr': UiTr;

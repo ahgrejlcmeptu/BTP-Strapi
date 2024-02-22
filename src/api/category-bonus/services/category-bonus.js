@@ -8,10 +8,12 @@ const { createCoreService } = require('@strapi/strapi').factories;
 
 module.exports = createCoreService('api::category-bonus.category-bonus', {
   async find(ctx) {
-    const data = await strapi.query('api::category-bonus.category-bonus').findMany();
+    const data = await strapi.query('api::category-bonus.category-bonus').findMany({
+      populate: ['bonusies']
+    });
 
-    return data.map(({id, title} = item) => {
-        return {id, title}
+    return data.map(({id, title, bonusies} = item) => {
+        return {id, title, bonusies: bonusies.length}
       }
     )
   },

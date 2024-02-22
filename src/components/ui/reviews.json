@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_ui_reviews",
+  "info": {
+    "displayName": "reviews"
+  },
+  "options": {},
+  "attributes": {
+    "like": {
+      "type": "biginteger"
+    },
+    "dislike": {
+      "type": "biginteger"
+    }
+  }
+}

@@ -763,7 +763,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    fullName: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -973,6 +972,7 @@ export interface ApiHelpHelp extends Schema.CollectionType {
     >;
     banner: Attribute.Component<'blocks.banner', true>;
     column: Attribute.Component<'ui.column', true>;
+    reviews: Attribute.Component<'ui.reviews'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

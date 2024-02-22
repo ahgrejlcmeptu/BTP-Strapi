@@ -16,9 +16,8 @@ module.exports = createCoreService('api::bonus-page.bonus-page', {
 
     const {id, title, description, banner} = data
     const button = banner.button
-    delete button.id
 
-    const img = banner.img.map(i => ({size: i.size, img: i.img.formats.thumbnail.url}))
+    const img = banner.img.map(i => ({size: i.size, img: i.img.url}))
 
     const EditBanner = {title: banner.title, text: banner.text, button, fon: banner.fon.url, img}
 

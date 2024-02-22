@@ -37,6 +37,12 @@
       "type": "component",
       "repeatable": true,
       "component": "ui.column"
+    },
+    "reviews": {
+      "displayName": "reviews",
+      "type": "component",
+      "repeatable": false,
+      "component": "ui.reviews"
     }
   }
 }

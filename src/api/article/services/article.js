@@ -14,7 +14,7 @@ module.exports = createCoreService('api::article.article', {
 
     return data.map(({id, card} = item) => {
       const {title, date, img, category} = card
-      return {id, title, date, img: img.formats.thumbnail.url, category: category.id}
+      return {id, title, date, img: img.url, category: category.id}
       }
     )
   },
