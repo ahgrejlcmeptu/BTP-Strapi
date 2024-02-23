@@ -6,11 +6,6 @@
   },
   "options": {},
   "attributes": {
-    "category": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::help-category.help-category"
-    },
     "title": {
       "type": "string"
     },

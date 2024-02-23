@@ -1,5 +1,6 @@
 'use strict';
 
+const {renderBlock} = require("blocks-html-renderer");
 /**
  * bonus-card service
  */
@@ -12,8 +13,8 @@ module.exports = createCoreService('api::bonus-card.bonus-card', {
       populate: ['img', 'categories'],
     });
 
-    return data.map(({id, label, title, text, btn, dateBefore, dateAfter, img, categories} = item) => ({
-      id, dateBefore, dateAfter, label, title, text, btn, img: img.url, categories: categories.map(i => i.id)
+    return data.map(({id, label, title, text, btn, dateBefore, dateAfter, img, categories, activete, partners} = item) => ({
+      id, dateBefore, dateAfter, label, title, text, btn, img: img.url, activete: renderBlock(activete), partners: renderBlock(partners), categories: categories.map(i => i.id)
     }))
   },
 });

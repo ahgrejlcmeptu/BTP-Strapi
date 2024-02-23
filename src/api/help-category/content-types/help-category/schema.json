@@ -14,6 +14,12 @@
   "attributes": {
     "title": {
       "type": "string"
+    },
+    "helps": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::help.help",
+      "mappedBy": "category"
     }
   }
 }

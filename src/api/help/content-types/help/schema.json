@@ -12,12 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "card": {
-      "displayName": "card",
-      "type": "component",
-      "repeatable": false,
-      "component": "help.card"
-    },
     "page": {
       "type": "dynamiczone",
       "components": [
@@ -43,6 +37,18 @@
       "type": "component",
       "repeatable": false,
       "component": "ui.reviews"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::help-category.help-category",
+      "inversedBy": "helps"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "blocks"
     }
   }
 }

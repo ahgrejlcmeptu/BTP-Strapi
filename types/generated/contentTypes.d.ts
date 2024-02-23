@@ -966,13 +966,19 @@ export interface ApiHelpHelp extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    card: Attribute.Component<'help.card'>;
     page: Attribute.DynamicZone<
       ['help.one', 'help.two', 'help.slide', 'help.plate', 'help.plate-column']
     >;
     banner: Attribute.Component<'blocks.banner', true>;
     column: Attribute.Component<'ui.column', true>;
     reviews: Attribute.Component<'ui.reviews'>;
+    category: Attribute.Relation<
+      'api::help.help',
+      'manyToOne',
+      'api::help-category.help-category'
+    >;
+    title: Attribute.String;
+    description: Attribute.Blocks;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -996,6 +1002,11 @@ export interface ApiHelpCategoryHelpCategory extends Schema.CollectionType {
   };
   attributes: {
     title: Attribute.String;
+    helps: Attribute.Relation<
+      'api::help-category.help-category',
+      'oneToMany',
+      'api::help.help'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

@@ -41,11 +41,6 @@ export interface HelpCard extends Schema.Component {
     description: '';
   };
   attributes: {
-    category: Attribute.Relation<
-      'help.card',
-      'oneToOne',
-      'api::help-category.help-category'
-    >;
     title: Attribute.String;
     description: Attribute.Blocks;
   };

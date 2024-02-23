@@ -6,4 +6,8 @@
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('api::help.help');
+module.exports = createCoreController('api::help.help', ({ strapi }) => ({
+  async findOne(ctx) {
+    return await strapi.service('api::help.help').findOne(ctx)
+  },
+}));
