@@ -27,7 +27,7 @@
       "repeatable": true,
       "component": "blocks.banner"
     },
-    "column": {
+    "table": {
       "type": "component",
       "repeatable": true,
       "component": "ui.column"

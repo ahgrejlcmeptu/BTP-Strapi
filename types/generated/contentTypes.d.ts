@@ -970,7 +970,7 @@ export interface ApiHelpHelp extends Schema.CollectionType {
       ['help.one', 'help.two', 'help.slide', 'help.plate', 'help.plate-column']
     >;
     banner: Attribute.Component<'blocks.banner', true>;
-    column: Attribute.Component<'ui.column', true>;
+    table: Attribute.Component<'ui.column', true>;
     reviews: Attribute.Component<'ui.reviews'>;
     category: Attribute.Relation<
       'api::help.help',

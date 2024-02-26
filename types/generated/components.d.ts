@@ -119,7 +119,8 @@ export interface UiButton extends Schema.Component {
 export interface UiColumn extends Schema.Component {
   collectionName: 'components_ui_columns';
   info: {
-    displayName: 'column';
+    displayName: 'table';
+    description: '';
   };
   attributes: {
     th: Attribute.String;
@@ -162,14 +163,6 @@ export interface UiSlide extends Schema.Component {
   };
 }
 
-export interface UiTable extends Schema.Component {
-  collectionName: 'components_ui_tables';
-  info: {
-    displayName: 'table';
-  };
-  attributes: {};
-}
-
 export interface UiTr extends Schema.Component {
   collectionName: 'components_ui_trs';
   info: {
@@ -196,7 +189,6 @@ declare module '@strapi/types' {
       'ui.img': UiImg;
       'ui.reviews': UiReviews;
       'ui.slide': UiSlide;
-      'ui.table': UiTable;
       'ui.tr': UiTr;
     }
   }
