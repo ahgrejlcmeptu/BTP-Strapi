@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "bumphs",
+  "info": {
+    "singularName": "bumph",
+    "pluralName": "bumphs",
+    "displayName": "Документы",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "file": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "files"
+      ]
+    }
+  }
+}

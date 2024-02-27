@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "questions",
+  "info": {
+    "singularName": "question",
+    "pluralName": "questions",
+    "displayName": "Вопросы",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::help-category.help-category"
+    },
+    "persons": {
+      "type": "enumeration",
+      "enum": [
+        "Юридическим лицам",
+        "Физическим лицам"
+      ],
+      "default": "Физическим лицам"
+    }
+  }
+}

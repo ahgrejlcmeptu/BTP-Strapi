@@ -9,11 +9,11 @@ const {createCoreService} = require('@strapi/strapi').factories;
 
 module.exports = createCoreService('api::help.help', {
   async findOne(ctx) {
-    const data  = await strapi.entityService.findOne('api::help.help', ctx.params.id, {
-        populate: ['page.slide.img', 'page.slide.video', 'page.slide.poster', 'banner',
-          'banner.button', 'banner.img', 'banner.img.img', "banner.fon",
-          'reviews', 'table.tr', 'category'
-        ]
+    const data = await strapi.entityService.findOne('api::help.help', ctx.params.id, {
+      populate: ['page.slide.img', 'page.slide.video', 'page.slide.poster', 'banner',
+        'banner.button', 'banner.img', 'banner.img.img', "banner.fon",
+        'reviews', 'table.tr', 'category'
+      ]
     });
 
     const page = data.page.map(item => {
@@ -74,6 +74,32 @@ module.exports = createCoreService('api::help.help', {
 
     const category = data.category
 
-    return {...data, description: renderBlock(data.description), category: category.title, page, banner, reviews, table}
+    const question = await strapi.query('api::question.question').findMany({
+      where: {
+        category: {
+          title: category.title
+        }
+      },
+      populate: true
+    });
+
+    const questionGroup = question.map(item => ({
+      id: item.id,
+      title: item.title,
+      description: renderBlock(item.description),
+      persons: item.persons,
+      category: item.category.title
+    }))
+
+    return {
+      ...data,
+      description: renderBlock(data.description),
+      category: category.title,
+      page,
+      banner,
+      reviews,
+      table,
+      question: questionGroup
+    }
   },
 });

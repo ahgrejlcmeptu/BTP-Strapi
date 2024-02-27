@@ -919,6 +919,38 @@ export interface ApiBonusPageBonusPage extends Schema.SingleType {
   };
 }
 
+export interface ApiBumphBumph extends Schema.CollectionType {
+  collectionName: 'bumphs';
+  info: {
+    singularName: 'bumph';
+    pluralName: 'bumphs';
+    displayName: '\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    file: Attribute.Media;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::bumph.bumph',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::bumph.bumph',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiCategoryBonusCategoryBonus extends Schema.CollectionType {
   collectionName: 'category_bonuses';
   info: {
@@ -1088,6 +1120,50 @@ export interface ApiPersonalPagePersonalPage extends Schema.SingleType {
   };
 }
 
+export interface ApiQuestionQuestion extends Schema.CollectionType {
+  collectionName: 'questions';
+  info: {
+    singularName: 'question';
+    pluralName: 'questions';
+    displayName: '\u0412\u043E\u043F\u0440\u043E\u0441\u044B';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Blocks;
+    category: Attribute.Relation<
+      'api::question.question',
+      'oneToOne',
+      'api::help-category.help-category'
+    >;
+    persons: Attribute.Enumeration<
+      [
+        '\u042E\u0440\u0438\u0434\u0438\u0447\u0435\u0441\u043A\u0438\u043C \u043B\u0438\u0446\u0430\u043C',
+        '\u0424\u0438\u0437\u0438\u0447\u0435\u0441\u043A\u0438\u043C \u043B\u0438\u0446\u0430\u043C'
+      ]
+    > &
+      Attribute.DefaultTo<'\u0424\u0438\u0437\u0438\u0447\u0435\u0441\u043A\u0438\u043C \u043B\u0438\u0446\u0430\u043C'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::question.question',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::question.question',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1110,11 +1186,13 @@ declare module '@strapi/types' {
       'api::article-category.article-category': ApiArticleCategoryArticleCategory;
       'api::bonus-card.bonus-card': ApiBonusCardBonusCard;
       'api::bonus-page.bonus-page': ApiBonusPageBonusPage;
+      'api::bumph.bumph': ApiBumphBumph;
       'api::category-bonus.category-bonus': ApiCategoryBonusCategoryBonus;
       'api::help.help': ApiHelpHelp;
       'api::help-category.help-category': ApiHelpCategoryHelpCategory;
       'api::home-page.home-page': ApiHomePageHomePage;
       'api::personal-page.personal-page': ApiPersonalPagePersonalPage;
+      'api::question.question': ApiQuestionQuestion;
     }
   }
 }
