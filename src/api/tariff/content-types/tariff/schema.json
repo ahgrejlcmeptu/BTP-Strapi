@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tariffs",
+  "info": {
+    "singularName": "tariff",
+    "pluralName": "tariffs",
+    "displayName": "Тарифы",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::tariff-category.tariff-category"
+    },
+    "price": {
+      "type": "biginteger"
+    },
+    "speed": {
+      "type": "string"
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "discount": {
+      "type": "biginteger"
+    }
+  }
+}

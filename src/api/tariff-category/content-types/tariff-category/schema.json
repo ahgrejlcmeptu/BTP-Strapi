@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tariff_categories",
+  "info": {
+    "singularName": "tariff-category",
+    "pluralName": "tariff-categories",
+    "displayName": "Тарифы Категории",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    }
+  }
+}

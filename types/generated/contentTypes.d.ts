@@ -817,7 +817,7 @@ export interface ApiArticleCategoryArticleCategory
   info: {
     singularName: 'article-category';
     pluralName: 'article-categories';
-    displayName: '\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438 \u043D\u043E\u0432\u043E\u0441\u0442\u0435\u0439';
+    displayName: '\u041D\u043E\u0432\u043E\u0441\u0442\u0438 \u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438';
     description: '';
   };
   options: {
@@ -956,7 +956,7 @@ export interface ApiCategoryBonusCategoryBonus extends Schema.CollectionType {
   info: {
     singularName: 'category-bonus';
     pluralName: 'category-bonuses';
-    displayName: '\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438 \u0431\u043E\u043D\u0443\u0441\u043E\u0432';
+    displayName: '\u0411\u043E\u043D\u0443\u0441\u044B \u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438';
     description: '';
   };
   options: {
@@ -1026,7 +1026,7 @@ export interface ApiHelpCategoryHelpCategory extends Schema.CollectionType {
   info: {
     singularName: 'help-category';
     pluralName: 'help-categories';
-    displayName: '\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438 \u043F\u043E\u043C\u043E\u0449\u0438';
+    displayName: '\u041F\u043E\u043C\u043E\u0449\u044C \u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438';
     description: '';
   };
   options: {
@@ -1164,6 +1164,144 @@ export interface ApiQuestionQuestion extends Schema.CollectionType {
   };
 }
 
+export interface ApiServiceService extends Schema.CollectionType {
+  collectionName: 'services';
+  info: {
+    singularName: 'service';
+    pluralName: 'services';
+    displayName: '\u0423\u0441\u043B\u0443\u0433\u0438';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Blocks;
+    price: Attribute.BigInteger;
+    ext: Attribute.String;
+    img: Attribute.Media;
+    speed: Attribute.String;
+    condition: Attribute.Blocks;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::service.service',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::service.service',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiServicePageServicePage extends Schema.SingleType {
+  collectionName: 'service_pages';
+  info: {
+    singularName: 'service-page';
+    pluralName: 'service-pages';
+    displayName: '\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430 \u0422\u0430\u0440\u0438\u0444\u044B \u0438 \u0423\u0441\u043B\u0443\u0433\u0438';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    banner: Attribute.Component<'blocks.banner', true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::service-page.service-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::service-page.service-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTariffTariff extends Schema.CollectionType {
+  collectionName: 'tariffs';
+  info: {
+    singularName: 'tariff';
+    pluralName: 'tariffs';
+    displayName: '\u0422\u0430\u0440\u0438\u0444\u044B';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    category: Attribute.Relation<
+      'api::tariff.tariff',
+      'oneToOne',
+      'api::tariff-category.tariff-category'
+    >;
+    price: Attribute.BigInteger;
+    speed: Attribute.String;
+    description: Attribute.Blocks;
+    discount: Attribute.BigInteger;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::tariff.tariff',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::tariff.tariff',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTariffCategoryTariffCategory extends Schema.CollectionType {
+  collectionName: 'tariff_categories';
+  info: {
+    singularName: 'tariff-category';
+    pluralName: 'tariff-categories';
+    displayName: '\u0422\u0430\u0440\u0438\u0444\u044B \u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    title: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::tariff-category.tariff-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::tariff-category.tariff-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1193,6 +1331,10 @@ declare module '@strapi/types' {
       'api::home-page.home-page': ApiHomePageHomePage;
       'api::personal-page.personal-page': ApiPersonalPagePersonalPage;
       'api::question.question': ApiQuestionQuestion;
+      'api::service.service': ApiServiceService;
+      'api::service-page.service-page': ApiServicePageServicePage;
+      'api::tariff.tariff': ApiTariffTariff;
+      'api::tariff-category.tariff-category': ApiTariffCategoryTariffCategory;
     }
   }
 }
