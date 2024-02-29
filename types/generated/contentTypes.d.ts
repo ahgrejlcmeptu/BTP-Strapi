@@ -1245,9 +1245,9 @@ export interface ApiTariffTariff extends Schema.CollectionType {
   };
   attributes: {
     title: Attribute.String;
-    category: Attribute.Relation<
+    categories: Attribute.Relation<
       'api::tariff.tariff',
-      'oneToOne',
+      'manyToMany',
       'api::tariff-category.tariff-category'
     >;
     price: Attribute.BigInteger;
@@ -1285,6 +1285,11 @@ export interface ApiTariffCategoryTariffCategory extends Schema.CollectionType {
   };
   attributes: {
     title: Attribute.String;
+    tarifies: Attribute.Relation<
+      'api::tariff-category.tariff-category',
+      'manyToMany',
+      'api::tariff.tariff'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

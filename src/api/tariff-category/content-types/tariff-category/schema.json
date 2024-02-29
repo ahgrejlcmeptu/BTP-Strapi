@@ -14,6 +14,12 @@
   "attributes": {
     "title": {
       "type": "string"
+    },
+    "tarifies": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tariff.tariff",
+      "mappedBy": "categories"
     }
   }
 }

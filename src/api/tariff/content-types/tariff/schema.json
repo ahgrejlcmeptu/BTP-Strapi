@@ -15,10 +15,11 @@
     "title": {
       "type": "string"
     },
-    "category": {
+    "categories": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::tariff-category.tariff-category"
+      "relation": "manyToMany",
+      "target": "api::tariff-category.tariff-category",
+      "inversedBy": "tarifies"
     },
     "price": {
       "type": "biginteger"
