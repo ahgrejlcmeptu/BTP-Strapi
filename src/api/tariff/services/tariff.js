@@ -57,4 +57,21 @@ module.exports = createCoreService('api::tariff.tariff', {
 
     return tariffs
   },
+  async combo(ctx) {
+    const data = await strapi.query('api::tariff.tariff').findMany({
+      populate: true
+    });
+
+    const combo = data.filter(item => item.categories.length > 1)
+
+    return combo.map(item => ({
+      id: item.id,
+      title: item.title,
+      price: item.price,
+      description: renderBlock(item.description),
+      speed: item.speed.split(', '),
+      categories: item.categories.map(i => i.id),
+      discount: item.discount
+    }))
+  },
 });
