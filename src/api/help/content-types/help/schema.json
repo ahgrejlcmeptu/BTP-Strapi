@@ -22,11 +22,6 @@
         "help.plate-column"
       ]
     },
-    "banner": {
-      "type": "component",
-      "repeatable": true,
-      "component": "blocks.banner"
-    },
     "table": {
       "type": "component",
       "repeatable": true,

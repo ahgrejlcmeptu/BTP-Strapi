@@ -50,10 +50,12 @@ export interface HelpOne extends Schema.Component {
   collectionName: 'components_help_ones';
   info: {
     displayName: 'one';
+    description: '';
   };
   attributes: {
     title: Attribute.String;
     description: Attribute.Blocks;
+    bannery: Attribute.Relation<'help.one', 'oneToOne', 'api::banner.banner'>;
   };
 }
 

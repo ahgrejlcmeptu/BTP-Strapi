@@ -9,12 +9,17 @@ const {createCoreService} = require('@strapi/strapi').factories;
 
 module.exports = createCoreService('api::help.help', {
   async findOne(ctx) {
+    console.log(555)
     const data = await strapi.entityService.findOne('api::help.help', ctx.params.id, {
-      populate: ['page.slide.img', 'page.slide.video', 'page.slide.poster', 'banner',
-        'banner.button', 'banner.img', 'banner.img.img', "banner.fon",
-        'reviews', 'table.tr', 'category'
-      ]
+      // populate: true
     });
+
+    // populate: ['page.slide.img', 'page.slide.video', 'page.slide.poster', 'banner',
+    //   'banner.button', 'banner.img', 'banner.img.img', "banner.fon",
+    //   'reviews', 'table.tr', 'category'
+    // ]
+
+    return data
 
     const page = data.page.map(item => {
       const component = item.__component

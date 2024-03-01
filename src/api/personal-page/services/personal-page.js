@@ -9,7 +9,7 @@ const { createCoreService } = require('@strapi/strapi').factories;
 module.exports = createCoreService('api::personal-page.personal-page',{
   async find(ctx) {
     const data = await strapi.query('api::personal-page.personal-page').findOne({
-      populate: ['banner1', 'banner1.button', 'banner1.img', 'banner1.img.img', "banner1.fon", 'banner2', 'banner2.button', 'banner2.img', 'banner2.img.img', "banner2.fon", 'tied', 'tied.button', 'tied.img', 'tied.img.img', "tied.fon",],
+      populate: ['banner', 'banner.banner', 'banner.banner.button', 'banner.banner.img', 'banner.banner.img.img', "banner.banner.fon"]
     });
 
     let banner1 = data.banner1

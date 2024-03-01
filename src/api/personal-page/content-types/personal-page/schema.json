@@ -12,20 +12,20 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "banner1": {
-      "type": "component",
-      "repeatable": true,
-      "component": "blocks.banner"
+    "bannerTop": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::banner.banner"
     },
-    "banner2": {
-      "type": "component",
-      "repeatable": true,
-      "component": "blocks.banner"
+    "bannerBottom": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::banner.banner"
     },
-    "tied": {
-      "type": "component",
-      "repeatable": false,
-      "component": "blocks.banner"
+    "bannerTied": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::banner.banner"
     }
   }
 }

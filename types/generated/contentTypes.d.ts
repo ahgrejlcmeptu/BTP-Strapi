@@ -842,6 +842,38 @@ export interface ApiArticleCategoryArticleCategory
   };
 }
 
+export interface ApiBannerBanner extends Schema.CollectionType {
+  collectionName: 'banners';
+  info: {
+    singularName: 'banner';
+    pluralName: 'banners';
+    displayName: '\u0411\u0430\u043D\u043D\u0435\u0440\u044B';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    banner: Attribute.Component<'blocks.banner', true>;
+    title: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::banner.banner',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::banner.banner',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiBonusCardBonusCard extends Schema.CollectionType {
   collectionName: 'bonus_cards';
   info: {
@@ -1001,7 +1033,6 @@ export interface ApiHelpHelp extends Schema.CollectionType {
     page: Attribute.DynamicZone<
       ['help.one', 'help.two', 'help.slide', 'help.plate', 'help.plate-column']
     >;
-    banner: Attribute.Component<'blocks.banner', true>;
     table: Attribute.Component<'ui.column', true>;
     reviews: Attribute.Component<'ui.reviews'>;
     category: Attribute.Relation<
@@ -1068,7 +1099,11 @@ export interface ApiHomePageHomePage extends Schema.SingleType {
     draftAndPublish: true;
   };
   attributes: {
-    banner: Attribute.Component<'blocks.banner', true>;
+    banner: Attribute.Relation<
+      'api::home-page.home-page',
+      'oneToOne',
+      'api::banner.banner'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1099,9 +1134,21 @@ export interface ApiPersonalPagePersonalPage extends Schema.SingleType {
     draftAndPublish: true;
   };
   attributes: {
-    banner1: Attribute.Component<'blocks.banner', true>;
-    banner2: Attribute.Component<'blocks.banner', true>;
-    tied: Attribute.Component<'blocks.banner'>;
+    bannerTop: Attribute.Relation<
+      'api::personal-page.personal-page',
+      'oneToOne',
+      'api::banner.banner'
+    >;
+    bannerBottom: Attribute.Relation<
+      'api::personal-page.personal-page',
+      'oneToOne',
+      'api::banner.banner'
+    >;
+    bannerTied: Attribute.Relation<
+      'api::personal-page.personal-page',
+      'oneToOne',
+      'api::banner.banner'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1327,6 +1374,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::article.article': ApiArticleArticle;
       'api::article-category.article-category': ApiArticleCategoryArticleCategory;
+      'api::banner.banner': ApiBannerBanner;
       'api::bonus-card.bonus-card': ApiBonusCardBonusCard;
       'api::bonus-page.bonus-page': ApiBonusPageBonusPage;
       'api::bumph.bumph': ApiBumphBumph;
