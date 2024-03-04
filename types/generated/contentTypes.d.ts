@@ -851,14 +851,13 @@ export interface ApiBannerBanner extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     banner: Attribute.Component<'blocks.banner', true>;
     title: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::banner.banner',
       'oneToOne',
@@ -931,8 +930,12 @@ export interface ApiBonusPageBonusPage extends Schema.SingleType {
   };
   attributes: {
     title: Attribute.String;
-    banner: Attribute.Component<'blocks.banner'>;
     description: Attribute.Blocks;
+    banner: Attribute.Relation<
+      'api::bonus-page.bonus-page',
+      'oneToOne',
+      'api::banner.banner'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1031,17 +1034,22 @@ export interface ApiHelpHelp extends Schema.CollectionType {
   };
   attributes: {
     page: Attribute.DynamicZone<
-      ['help.one', 'help.two', 'help.slide', 'help.plate', 'help.plate-column']
+      [
+        'help.one',
+        'help.two',
+        'help.slide',
+        'help.plate',
+        'help.plate-column',
+        'help.table'
+      ]
     >;
-    table: Attribute.Component<'ui.column', true>;
     reviews: Attribute.Component<'ui.reviews'>;
     category: Attribute.Relation<
       'api::help.help',
       'manyToOne',
       'api::help-category.help-category'
     >;
-    title: Attribute.String;
-    description: Attribute.Blocks;
+    card: Attribute.Component<'help.card'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1260,7 +1268,11 @@ export interface ApiServicePageServicePage extends Schema.SingleType {
     draftAndPublish: true;
   };
   attributes: {
-    banner: Attribute.Component<'blocks.banner', true>;
+    banner: Attribute.Relation<
+      'api::service-page.service-page',
+      'oneToOne',
+      'api::banner.banner'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1272,6 +1284,37 @@ export interface ApiServicePageServicePage extends Schema.SingleType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::service-page.service-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTableTable extends Schema.CollectionType {
+  collectionName: 'tables';
+  info: {
+    singularName: 'table';
+    pluralName: 'tables';
+    displayName: '\u0422\u0430\u0431\u043B\u0438\u0446\u044B';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    table: Attribute.Component<'ui.column', true>;
+    title: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::table.table',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::table.table',
       'oneToOne',
       'admin::user'
     > &
@@ -1386,6 +1429,7 @@ declare module '@strapi/types' {
       'api::question.question': ApiQuestionQuestion;
       'api::service.service': ApiServiceService;
       'api::service-page.service-page': ApiServicePageServicePage;
+      'api::table.table': ApiTableTable;
       'api::tariff.tariff': ApiTariffTariff;
       'api::tariff-category.tariff-category': ApiTariffCategoryTariffCategory;
     }

@@ -10,7 +10,6 @@ module.exports = createCoreService('api::home-page.home-page', {
   async find(ctx) {
     const data = await strapi.query('api::home-page.home-page').findOne({
       populate: ['banner', 'banner.banner', 'banner.banner.button', 'banner.banner.img', 'banner.banner.img.img', "banner.banner.fon"]
-      // populate: ['banner', 'banner.button', 'banner.img', 'banner.img.img', "banner.fon"],
     });
 
     let banner = data.banner

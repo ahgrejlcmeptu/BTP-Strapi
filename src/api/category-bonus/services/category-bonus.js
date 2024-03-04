@@ -12,7 +12,7 @@ module.exports = createCoreService('api::category-bonus.category-bonus', {
       populate: ['bonusies']
     });
 
-    return data.map(({id, title, bonusies} = item) => {
+    return data.filter(i => i.bonusies.length).map(({id, title, bonusies} = item) => {
         return {id, title, bonusies: bonusies.length}
       }
     )

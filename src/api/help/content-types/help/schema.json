@@ -19,13 +19,9 @@
         "help.two",
         "help.slide",
         "help.plate",
-        "help.plate-column"
+        "help.plate-column",
+        "help.table"
       ]
-    },
-    "table": {
-      "type": "component",
-      "repeatable": true,
-      "component": "ui.column"
     },
     "reviews": {
       "displayName": "reviews",
@@ -39,11 +35,10 @@
       "target": "api::help-category.help-category",
       "inversedBy": "helps"
     },
-    "title": {
-      "type": "string"
-    },
-    "description": {
-      "type": "blocks"
+    "card": {
+      "type": "component",
+      "repeatable": false,
+      "component": "help.card"
     }
   }
 }

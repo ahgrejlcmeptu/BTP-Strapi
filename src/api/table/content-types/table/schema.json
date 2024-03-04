@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "banners",
+  "collectionName": "tables",
   "info": {
-    "singularName": "banner",
-    "pluralName": "banners",
-    "displayName": "Баннеры",
+    "singularName": "table",
+    "pluralName": "tables",
+    "displayName": "Таблицы",
     "description": ""
   },
   "options": {
@@ -12,10 +12,10 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "banner": {
+    "table": {
       "type": "component",
       "repeatable": true,
-      "component": "blocks.banner"
+      "component": "ui.column"
     },
     "title": {
       "type": "string"

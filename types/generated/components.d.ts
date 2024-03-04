@@ -55,7 +55,7 @@ export interface HelpOne extends Schema.Component {
   attributes: {
     title: Attribute.String;
     description: Attribute.Blocks;
-    bannery: Attribute.Relation<'help.one', 'oneToOne', 'api::banner.banner'>;
+    banner: Attribute.Relation<'help.one', 'oneToOne', 'api::banner.banner'>;
   };
 }
 
@@ -92,6 +92,17 @@ export interface HelpSlide extends Schema.Component {
     title: Attribute.String;
     description: Attribute.Blocks;
     slide: Attribute.Component<'ui.slide', true>;
+  };
+}
+
+export interface HelpTable extends Schema.Component {
+  collectionName: 'components_help_tables';
+  info: {
+    displayName: 'table';
+    description: '';
+  };
+  attributes: {
+    table: Attribute.Relation<'help.table', 'oneToOne', 'api::table.table'>;
   };
 }
 
@@ -185,6 +196,7 @@ declare module '@strapi/types' {
       'help.plate-column': HelpPlateColumn;
       'help.plate': HelpPlate;
       'help.slide': HelpSlide;
+      'help.table': HelpTable;
       'help.two': HelpTwo;
       'ui.button': UiButton;
       'ui.column': UiColumn;

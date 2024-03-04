@@ -15,13 +15,13 @@
     "title": {
       "type": "string"
     },
-    "banner": {
-      "type": "component",
-      "repeatable": false,
-      "component": "blocks.banner"
-    },
     "description": {
       "type": "blocks"
+    },
+    "banner": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::banner.banner"
     }
   }
 }

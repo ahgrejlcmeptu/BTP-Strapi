@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_help_tables",
+  "info": {
+    "displayName": "table",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "table": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::table.table"
+    }
+  }
+}

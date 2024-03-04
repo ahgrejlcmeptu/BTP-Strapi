@@ -13,9 +13,9 @@
   "pluginOptions": {},
   "attributes": {
     "banner": {
-      "type": "component",
-      "repeatable": true,
-      "component": "blocks.banner"
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::banner.banner"
     }
   }
 }
