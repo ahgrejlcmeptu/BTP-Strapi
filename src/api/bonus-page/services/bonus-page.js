@@ -13,6 +13,8 @@ module.exports = createCoreService('api::bonus-page.bonus-page', {
       populate: ['banner', 'banner.banner', 'banner.banner.button', 'banner.banner.img', 'banner.banner.img.img', "banner.banner.fon"]
     });
 
+    if (!data.publishedAt) return {}
+
     let banner = data.banner
 
     banner = banner?.banner.map(item => {

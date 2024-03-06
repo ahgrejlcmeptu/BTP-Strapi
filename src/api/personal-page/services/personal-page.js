@@ -15,9 +15,14 @@ module.exports = createCoreService('api::personal-page.personal-page',{
         'bannerTied', 'bannerTied.banner', 'bannerTied.banner.button', 'bannerTied.banner.img', 'bannerTied.banner.img.img', "bannerTied.banner.fon",
       ]
     });
+    if (!data.publishedAt) return {}
+
     const banners = {bannerTop: data.bannerTop?.banner, bannerBottom: data.bannerBottom?.banner, bannerTied: data.bannerTied?.banner}
     const bannersFormat = {}
+
     Object.keys(banners).forEach(key => {
+      if (!banners[key]) return;
+
       bannersFormat[key] = banners[key].map(item => {
         const {id, title, text, form, button} = item
         const fon = item.fon.url
