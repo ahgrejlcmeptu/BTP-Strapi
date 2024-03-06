@@ -15,7 +15,7 @@ module.exports = createCoreService('api::personal-page.personal-page',{
         'bannerTied', 'bannerTied.banner', 'bannerTied.banner.button', 'bannerTied.banner.img', 'bannerTied.banner.img.img', "bannerTied.banner.fon",
       ]
     });
-    if (!data.publishedAt) return {}
+    // if (!data.publishedAt) return {}
 
     const banners = {bannerTop: data.bannerTop?.banner, bannerBottom: data.bannerBottom?.banner, bannerTied: data.bannerTied?.banner}
     const bannersFormat = {}

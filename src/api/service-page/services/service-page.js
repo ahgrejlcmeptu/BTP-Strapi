@@ -12,7 +12,7 @@ module.exports = createCoreService('api::service-page.service-page', {
     const data = await strapi.query('api::service-page.service-page').findOne({
       populate: ['banner', 'banner.banner', 'banner.banner.button', 'banner.banner.img', 'banner.banner.img.img', "banner.banner.fon"]
     });
-    if (!data.publishedAt) return {}
+    // if (!data.publishedAt) return {}
 
     let banner = data.banner
 
