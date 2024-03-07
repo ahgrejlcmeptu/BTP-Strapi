@@ -55,3 +55,13 @@ Feel free to check out the [Strapi GitHub repository](https://github.com/strapi/
 ---
 
 <sub>🤫 Psst! [Strapi is hiring](https://strapi.io/careers).</sub>
+
+npm install --production
+cp .env.example .env
+nano .env
+NODE_ENV=production npm run build
+
+nano server.js
+const strapi = require('@strapi/strapi');
+strapi(/* {...} */).start();
+NODE_ENV=production pm2 start server.js --name api
