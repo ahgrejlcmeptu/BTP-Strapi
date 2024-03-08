@@ -109,6 +109,17 @@ module.exports = createCoreService('api::help.help', {
       question: questionGroup
     }
   },
+  async update(ctx) {
+    const reviews = await strapi.entityService.findOne('api::help.help', ctx.params.id, {
+      populate: ['reviews']
+    });
+    reviews.reviews[ctx.request.body.reviews]++
+
+    const data = await strapi.entityService.update('api::help.help', ctx.params.id, {
+      data: {reviews: reviews.reviews}
+    });
+    return data
+  },
   async search(ctx) {
     const data = await strapi.query('api::help.help').findMany({
       populate: [
