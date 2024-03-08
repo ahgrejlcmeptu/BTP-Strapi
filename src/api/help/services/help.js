@@ -101,6 +101,7 @@ module.exports = createCoreService('api::help.help', {
     }))
 
     return {
+      id: data.id,
       category: category.title,
       title: data.card.title,
       page,
