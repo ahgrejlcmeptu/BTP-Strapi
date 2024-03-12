@@ -5,4 +5,8 @@ module.exports = createCoreController('api::help.help', ({ strapi }) => ({
     const data = await strapi.service('api::help.help').search(ctx)
     return data
   },
+  async searchTips(ctx) {
+    const data = await strapi.service('api::help.help').searchTips(ctx)
+    return data
+  },
 }));

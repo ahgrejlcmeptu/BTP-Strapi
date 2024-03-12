@@ -146,4 +146,120 @@ module.exports = createCoreService('api::help.help', {
 
     return result
   },
+  async searchTips(ctx) {
+    const results = await strapi.query('api::help.help').findMany({
+      populate: [
+        'category', 'card',
+        'page.banner.banner',
+        'page.table.table.tr'
+      ]
+    });
+
+    let test = []
+
+    results.forEach(data => {
+      const page = data.page.map(item => {
+        const component = item.__component
+        switch (component) {
+          case 'help.one':
+            const banner = item.banner?.banner.map(item => {
+              const {title, text} = item
+
+              return {title, text}
+            })
+
+            return {
+              title: item.title,
+              description: renderBlock(item.description),
+              banner
+            }
+            break
+          case 'help.two':
+            return {
+              title: item.title,
+              description: renderBlock(item.description)
+            }
+            break
+          case 'help.slide':
+            return {
+              title: item.title,
+              description: renderBlock(item.description),
+            }
+            break
+          case 'help.plate':
+            return {
+              title: item.title,
+              description: renderBlock(item.description)
+            }
+            break
+          case 'help.plate-column':
+            return {
+              title: item.title,
+              description: renderBlock(item.description)
+            }
+            break
+          case 'help.table':
+            const table = item.table?.table.map(item => {
+              const tr = item.tr.map(i => ({id: i.id, text: renderBlock(i.td)}))
+              return {
+                ...item, tr
+              }
+            })
+
+            return {
+              table
+            }
+            break
+        }
+      })
+      const newData = {
+        title: data.card.title,
+        description: renderBlock(data.card.description),
+        page,
+      }
+      const arr = []
+
+      for (let key in newData) {
+        if (newData[key] && typeof newData[key] === 'string') arr.push(newData[key].replace(/(<([^>]+)>)/gi, ''))
+        if (newData[key] && typeof newData[key] === 'object') {
+          for (let i in newData[key][0]) {
+            const obj = newData[key][0]
+            if (obj[i] && typeof obj[i] === 'string') arr.push(obj[i].replace(/(<([^>]+)>)/gi, ''))
+          }
+        }
+      }
+
+      arr.find(item => {
+        let index = item.toUpperCase().indexOf(ctx.query.result.toUpperCase())
+
+        if (index > -1) {
+          test.push({
+            id: data.id,
+            category: data.category.id,
+            text: wordWhole(item, index, ctx.query.result.length)
+          })
+          return true
+        }
+
+      });
+    })
+
+    return test
+  },
 });
+
+function wordWhole (str, index, last) {
+  let firstIndex, lastIndex
+
+  for (firstIndex = index; firstIndex > 0;  firstIndex--) {
+    if (str[firstIndex] === ' ') {
+      firstIndex++
+      break;
+    }
+  }
+  for (lastIndex = index + last; lastIndex < str.length;  lastIndex++) {
+    if (str[lastIndex] === ' ') break;
+  }
+
+  return str.slice(firstIndex, lastIndex)
+}
