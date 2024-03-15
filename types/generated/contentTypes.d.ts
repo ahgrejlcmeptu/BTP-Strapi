@@ -1130,6 +1130,39 @@ export interface ApiHomePageHomePage extends Schema.SingleType {
   };
 }
 
+export interface ApiNewsletterNewsletter extends Schema.CollectionType {
+  collectionName: 'newsletters';
+  info: {
+    singularName: 'newsletter';
+    pluralName: 'newsletters';
+    displayName: '\u0420\u0430\u0441\u0441\u044B\u043B\u043A\u0430';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    data: Attribute.JSON;
+    name: Attribute.String;
+    description: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::newsletter.newsletter',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::newsletter.newsletter',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPersonalPagePersonalPage extends Schema.SingleType {
   collectionName: 'personal_pages';
   info: {
@@ -1425,6 +1458,7 @@ declare module '@strapi/types' {
       'api::help.help': ApiHelpHelp;
       'api::help-category.help-category': ApiHelpCategoryHelpCategory;
       'api::home-page.home-page': ApiHomePageHomePage;
+      'api::newsletter.newsletter': ApiNewsletterNewsletter;
       'api::personal-page.personal-page': ApiPersonalPagePersonalPage;
       'api::question.question': ApiQuestionQuestion;
       'api::service.service': ApiServiceService;
