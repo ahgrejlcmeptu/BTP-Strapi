@@ -16,4 +16,10 @@ module.exports = createCoreService('api::newsletter.newsletter', {
       return item
     })
   },
+  async findOne(ctx) {
+
+    const data = await strapi.entityService.findOne('api::newsletter.newsletter', ctx.params.id,);
+
+    return data
+  },
 });
