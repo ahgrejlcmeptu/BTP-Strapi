@@ -1145,6 +1145,7 @@ export interface ApiNewsletterNewsletter extends Schema.CollectionType {
     data: Attribute.JSON;
     name: Attribute.String;
     description: Attribute.Text;
+    action: Attribute.JSON;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
