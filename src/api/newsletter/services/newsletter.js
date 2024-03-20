@@ -4,71 +4,66 @@
  */
 
 const {createCoreService} = require('@strapi/strapi').factories;
-
+const users = [
+  {id: '1', lastOrder: '2024,03,10'},
+  {id: '2', lastOrder: '2024,03,14'}
+]
+const ONE_DAY = 1000 * 60 * 24
 const newsletter = {}
 const newsletterStop = (id) => {
-  console.log(newsletter)
   clearTimeout(newsletter[id])
   clearInterval(newsletter[id])
 }
 
 const types = {
   test: {
-    init(data, id) {
+    init({table, logics, id}) {
       newsletterStop(id)
-      console.log('отправляем на ' + data.list)
+      console.log('отправляем на ' + logics.list)
     }
   },
   presently: {
-    init(data, id) {
+    init({table, logics, id}) {
       newsletterStop(id)
       console.log('отправляем сейчас')
     }
   },
   certainTime: {
-    init(data, id) {
+    init({table, logics, id}) {
       newsletterStop(id)
-      console.log('отправляем в ' + data.date + ' ' + data.time)
+      console.log('отправляем в ' + logics.date + ' ' + logics.time)
     }
   },
   birthday: {
-    init(data, id) {
+    init({table, logics, id}) {
       newsletterStop(id)
       console.log('отправляем именинникам')
     }
   },
   lastOrder: {
-    init(data, id) {
+    init({table, logics, id}) {
       newsletterStop(id)
-      const userList = [{date: '2024,03,10'}, {date: '2024,03,14'}]
-      userList.forEach(user => {
-        const date = new Date()
-        date.setHours(0,0,0,0)
-
-        const oldDate = new Date(user.date)
-        oldDate.setDate(oldDate.getDate() + +data.day)
-        oldDate.setHours(0,0,0,0)
-
-        if (+oldDate === +date) {
-          console.log('отправляем')
-        }
-      })
+      func()
 
       newsletter[id] = setInterval(() => {
-        userList.forEach(user => {
-          const date = new Date()
-          date.setHours(0,0,0,0)
+        func()
+      }, ONE_DAY)
+      console.log('отправляем через ' + logics.day + ' с последнего заказа')
 
-          const oldDate = new Date(user.date)
-          oldDate.setDate(oldDate.getDate() + +data.day)
-          oldDate.setHours(0,0,0,0)
+      function func() {
+        users.forEach(user => {
+          const date = new Date()
+          date.setHours(0, 0, 0, 0)
+
+          const oldDate = new Date(user.lastOrder)
+          oldDate.setDate(oldDate.getDate() + +logics.day)
+          oldDate.setHours(0, 0, 0, 0)
 
           if (+oldDate === +date) {
-            console.log('отправляем')
+            console.log('отправляем ' + user.id)
           }
         })
-      }, 1000 * 60 * 24)
-      console.log('отправляем через ' + data.day + ' с последнего заказа')
+      }
     }
   }
 }
@@ -91,8 +86,13 @@ module.exports = createCoreService('api::newsletter.newsletter', {
       data: ctx.request.body
     });
 
-    const action = ctx.request.body.action
-    types[action.name].init(action.logics, ctx.params.id)
+    const body = ctx.request.body
+
+    types[body.action.name].init({
+      table: body.data.table,
+      logics: body.action.logics,
+      id: ctx.params.id
+    })
 
     return data
   },
