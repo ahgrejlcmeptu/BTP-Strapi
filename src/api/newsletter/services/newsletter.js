@@ -3,8 +3,8 @@ const nodemailer = require("nodemailer");
 
 let transporter = nodemailer.createTransport({
   host: 'smtp.mail.ru',
-  port: 587,
-  secure: false,  // 465 true all false
+  port: 465,
+  secure: true,  // 465 true all false
   auth: {
     user: "ahrejlcmeptu@mail.ru",
     pass: "h3Fm2qyYHZngyKzdpaPW",
