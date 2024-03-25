@@ -153,6 +153,7 @@ module.exports = createCoreService('api::newsletter.newsletter', {
     return data
   },
   async action(ctx) {
+    console.log('пробуем отправить')
     const data = await strapi.entityService.update('api::newsletter.newsletter', ctx.params.id, {
       data: ctx.request.body
     });
