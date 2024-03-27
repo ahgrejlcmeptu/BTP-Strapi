@@ -1,6 +1,12 @@
 'use strict';
 const nodemailer = require("nodemailer");
+// const sendgrid = require('nodemailer-sendgrid-transport');
 
+// const transporter = nodemailer.createTransport(sendgrid({
+//   auth: {
+//     api_key: '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'
+//   }
+// }))
 let transporter = nodemailer.createTransport({
   host: 'smtp.mail.ru',
   port: 465,
