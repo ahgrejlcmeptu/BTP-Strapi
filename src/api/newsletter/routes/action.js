@@ -4,7 +4,7 @@ module.exports = {
       method: "PUT",
       path: "/action/:id",
       handler: "action.action",
-    }
+    },
   ]
 };
 

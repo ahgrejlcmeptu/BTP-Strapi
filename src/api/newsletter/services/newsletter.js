@@ -1,5 +1,6 @@
 'use strict';
 const nodemailer = require("nodemailer");
+const fs = require("fs");
 // const sendgrid = require('nodemailer-sendgrid-transport');
 
 // const transporter = nodemailer.createTransport(sendgrid({
@@ -144,7 +145,6 @@ const types = {
   }
 }
 
-
 module.exports = createCoreService('api::newsletter.newsletter', {
   async find(ctx) {
     const data = await strapi.query('api::newsletter.newsletter').findMany()
@@ -155,7 +155,7 @@ module.exports = createCoreService('api::newsletter.newsletter', {
     })
   },
   async findOne(ctx) {
-    const data = await strapi.entityService.findOne('api::newsletter.newsletter', ctx.params.id,);
+    const data = await strapi.entityService.findOne('api::newsletter.newsletter', ctx.params.id);
     return data
   },
   async action(ctx) {
@@ -181,4 +181,40 @@ module.exports = createCoreService('api::newsletter.newsletter', {
 
     return data
   },
+  async create(ctx) {
+    const entry  = ctx.request.body
+
+    const images = entry.imgSrc
+
+    images.forEach((img, idx) => {
+      if (img.indexOf(';base64,') !== -1) {
+        console.log('тут надо создать фото и перезаписать таблицу')
+        const date = new Date()
+        console.log(img.split('/'))
+        const exp = img.split('/')[1].split(';')[0]
+
+        let buff = Buffer.from(img, 'base64');
+        fs.writeFileSync(`./public/mails/${ Date.now() }-${idx}.png`, buff);
+      }
+    })
+
+    // let buff = Buffer.from(data, 'base64');
+    // fs.writeFileSync('stack-abuse-logo-out.png', buff);
+
+    const data = await strapi.entityService.create('api::newsletter.newsletter', {
+      data: entry.body
+    });
+    return {data}
+  },
+  // async update(ctx) {
+  //   const reviews = await strapi.entityService.findOne('api::help.help', ctx.params.id, {
+  //     populate: ['reviews']
+  //   });
+  //   reviews.reviews[ctx.request.body.reviews]++
+  //
+  //   const data = await strapi.entityService.update('api::help.help', ctx.params.id, {
+  //     data: {reviews: reviews.reviews}
+  //   });
+  //   return data
+  // },
 });
