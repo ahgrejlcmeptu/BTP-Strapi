@@ -9,12 +9,9 @@ const fs = require("fs");
 //   }
 // }))
 let transporter = nodemailer.createTransport({
-  host: 'smtp.mail.ru',
-  port: 465,
-  secure: true,  // 465 true all false
+  host: 'smtp.mail.ru', port: 465, secure: true,  // 465 true all false
   auth: {
-    user: "ahrejlcmeptu@mail.ru",
-    pass: "h3Fm2qyYHZngyKzdpaPW",
+    user: "ahrejlcmeptu@mail.ru", pass: "h3Fm2qyYHZngyKzdpaPW",
   },
 });
 
@@ -27,10 +24,7 @@ const newsletterStop = (id) => {
 }
 const mailSend = async ({table, mail, name}) => {
   await transporter.sendMail({
-    from: '"Title text" <ahrejlcmeptu@mail.ru>',
-    to: mail,
-    subject: name,
-    html: table.table
+    from: '"Title text" <ahrejlcmeptu@mail.ru>', to: mail, subject: name, html: table.table
   });
   console.log({name, mail})
 }
@@ -84,8 +78,7 @@ const types = {
       await mailSend({table, mail: logics.list, name})
       console.log('отправляем тестовый на ' + logics.list)
     }
-  },
-  presently: {
+  }, presently: {
     async init({users, name, table, logics, id}) {
       newsletterStop(id)
 
@@ -94,8 +87,7 @@ const types = {
       await mailSend({table, mail, name})
       console.log('отправляем сейчас на' + mail)
     }
-  },
-  certainTime: {
+  }, certainTime: {
     async init({users, name, table, logics, id}) {
       newsletterStop(id)
       console.log('отправляем в ' + logics.date + ' ' + logics.time)
@@ -118,8 +110,7 @@ const types = {
         console.log(`Время пришло!!! ${logics.date} ${logics.time}`)
       }, timeOut)
     }
-  },
-  birthday: {
+  }, birthday: {
     async init({users, name, table, logics, id}) {
       newsletterStop(id)
       const mail = userBirthday(users)
@@ -130,8 +121,7 @@ const types = {
         await mailSend({table, mail, name})
       }, ONE_DAY)
     }
-  },
-  lastOrder: {
+  }, lastOrder: {
     async init({users, name, table, logics, id}) {
       newsletterStop(id)
       const mail = userLastOrder(users, logics.day)
@@ -166,55 +156,30 @@ module.exports = createCoreService('api::newsletter.newsletter', {
 
     const body = ctx.request.body
 
-    const users = [
-      {newsletter: true, id: '1', lastOrder: '2024,03,10', mail: 'bgblllhuk@gmail.com', birthday: '1991.03.21'},
-      {newsletter: true, id: '2', lastOrder: '2024,03,14', mail: 'vikttkachyov@yandex.ru', birthday: '1991.03.22'}
-    ]
+    const users = [{
+      newsletter: true,
+      id: '1',
+      lastOrder: '2024,03,10',
+      mail: 'bgblllhuk@gmail.com',
+      birthday: '1991.03.21'
+    }, {newsletter: true, id: '2', lastOrder: '2024,03,14', mail: 'vikttkachyov@yandex.ru', birthday: '1991.03.22'}]
 
     await types[body.action.name].init({
-      users,
-      name: body.name,
-      table: body.data,
-      logics: body.action.logics,
-      id: ctx.params.id
+      users, name: body.name, table: body.data, logics: body.action.logics, id: ctx.params.id
     })
 
     return data
   },
   async create(ctx) {
-    const entry  = ctx.request.body
+    const entry = ctx.request.body
 
-    const images = entry.imgSrc
-
-    images.forEach((img, idx) => {
-      if (img.indexOf(';base64,') !== -1) {
-        console.log('тут надо создать фото и перезаписать таблицу')
-        const date = new Date()
-        console.log(img.split('/'))
-        const exp = img.split('/')[1].split(';')[0]
-
-        let buff = Buffer.from(img, 'base64');
-        fs.writeFileSync(`./public/mails/${ Date.now() }-${idx}.png`, buff);
-      }
-    })
-
-    // let buff = Buffer.from(data, 'base64');
-    // fs.writeFileSync('stack-abuse-logo-out.png', buff);
-
-    const data = await strapi.entityService.create('api::newsletter.newsletter', {
-      data: entry.body
-    });
+    const data = await strapi.entityService.create('api::newsletter.newsletter', {data: entry.body});
     return {data}
   },
-  // async update(ctx) {
-  //   const reviews = await strapi.entityService.findOne('api::help.help', ctx.params.id, {
-  //     populate: ['reviews']
-  //   });
-  //   reviews.reviews[ctx.request.body.reviews]++
-  //
-  //   const data = await strapi.entityService.update('api::help.help', ctx.params.id, {
-  //     data: {reviews: reviews.reviews}
-  //   });
-  //   return data
-  // },
+  async update(ctx) {
+    const entry = ctx.request.body
+
+    const data = await strapi.entityService.update('api::newsletter.newsletter', ctx.params.id, {data: entry.body});
+    return data
+  },
 });

@@ -15,5 +15,8 @@ module.exports = createCoreController('api::newsletter.newsletter', ({ strapi })
   },
   async create(ctx) {
     return await strapi.service('api::newsletter.newsletter').create(ctx)
+  },
+  async update(ctx) {
+    return await strapi.service('api::newsletter.newsletter').update(ctx)
   }
 }));
