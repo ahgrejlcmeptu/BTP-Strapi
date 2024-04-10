@@ -1,17 +1,11 @@
 'use strict';
 const nodemailer = require("nodemailer");
 const fs = require("fs");
-// const sendgrid = require('nodemailer-sendgrid-transport');
 
-// const transporter = nodemailer.createTransport(sendgrid({
-//   auth: {
-//     api_key: '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'
-//   }
-// }))
 let transporter = nodemailer.createTransport({
-  host: 'smtp.mail.ru', port: 465, secure: true,  // 465 true all false
+  host: process.env.SMTP_HOST, port: process.env.SMTP_PORT, secure: true,  // 465 true all false
   auth: {
-    user: "ahrejlcmeptu@mail.ru", pass: "h3Fm2qyYHZngyKzdpaPW",
+    user: process.env.SMTP_USERNAME, pass: process.env.SMTP_PASSWORD,
   },
 });
 
@@ -24,7 +18,7 @@ const newsletterStop = (id) => {
 }
 const mailSend = async ({table, mail, name}) => {
   await transporter.sendMail({
-    from: '"Title text" <ahrejlcmeptu@mail.ru>', to: mail, subject: name, html: table.table
+    from: `"Title text" <${process.env.DEFAULT_EMAIL}>`, to: mail, subject: name, html: table.table
   });
   console.log({name, mail})
 }
