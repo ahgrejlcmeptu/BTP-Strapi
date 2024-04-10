@@ -1,18 +1,24 @@
-// module.exports = () => ({});
-
-
-module.exports = {
-  //
-  graphql: {
+module.exports = ({ env }) => ({
+  email: {
     config: {
-      endpoint: '/graphql',
-      shadowCRUD: true,
-      playgroundAlways: false,
-      depthLimit: 7,
-      amountLimit: 100,
-      apolloServer: {
-        tracing: false,
+      provider: 'nodemailer',
+      providerOptions: {
+        host: env('SMTP_HOST'),
+        port: env('SMTP_PORT'),
+        auth: {
+          user: env('SMTP_USERNAME'),
+          pass: env('SMTP_PASSWORD'),
+        },
+        pool: true,
+        logger: true,
+        debug: true,
+        maxConnections: 10000
+      },
+
+      settings: {
+        defaultFrom: env('DEFAULT_EMAIL'),
+        defaultReplyTo: env('DEFAULT_EMAIL'),
       },
     },
   },
-};
+});
