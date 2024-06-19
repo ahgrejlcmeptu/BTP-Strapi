@@ -76,11 +76,11 @@ const types = {
   base: {
     async init({users, name, table, logics, id}) {
       newsletterStop(id)
-
       const usersList = filterUsers(users, logics)
       const details = logics.details
 
-      console.log(usersList)
+
+      logicsDate[logics.date].init({users: usersList, name, table, logics: details, id})
 
       // const mail = userNewsletter(users)
       //
@@ -97,90 +97,117 @@ const filterDate = {
 }
 
 const filterUsers = (users, logics) => {
-  users.filter(item => {
-    const error = []
-    if (item.newsletter) {
-      if (logics.region) {
-
+  const filterLogics = {
+    "region": logics.region,
+    "tariff": logics.tariff,
+    "service": logics.service,
+    // "serviceOn": logics.serviceOn,
+    "activities": logics.activities,
+    "subscribers": logics.subscribers
+  }
+  return users.filter(item => {
+    for (let key in filterLogics) {
+      if (Array.isArray(logics[key])) {
+        if (logics[key].length && !logics[key].includes(item[key])) {
+          return false;
+        }
+      } else {
+        if (key === 'service' && logics.serviceOn.length) {
+          if (logics[key] && logics.serviceOn.length !== 2) {
+            if (logics.serviceOn[0] === 'on' && item[key] !== logics[key]) {
+              return false;
+            }
+            if (logics.serviceOn[0] === 'off' && item[key] === logics[key]) {
+              return false;
+            }
+          }
+        } else {
+          if (logics[key] && item[key] !== logics[key]) {
+            return false;
+          }
+        }
       }
-      if (logics.tariff) {
 
-      }
-      if (logics.serviceOn.length) {
-
-      }
-      if (logics.activitiesOn.length) {
-
-      }
-      if (logics.subscribersOn.length) {
-
-      }
-      // region tariff activitiesOn service serviceOn subscribersOn
-      // item.subscribers
     }
+    return true;
   })
 }
 
-// const types = {
-//   presently: {
-//     async init({users, name, table, logics, id}) {
-//       newsletterStop(id)
-//
-//       const mail = userNewsletter(users)
-//
-//       await mailSend({table, mail, name})
-//       console.log('отправляем сейчас на' + mail)
-//     }
-//   },
-//   certainTime: {
-//     async init({users, name, table, logics, id}) {
-//       newsletterStop(id)
-//       console.log('отправляем в ' + logics.date + ' ' + logics.time)
-//
-//       const dateArr = logics.date.split('.')
-//       const timeArr = logics.time.split(':')
-//
-//       const date = new Date()
-//       const dateSend = new Date(dateArr[2], +dateArr[1] - 1, dateArr[0], timeArr[0], timeArr[1])
-//       date.setSeconds(0, 0)
-//       const timeOut = +dateSend - +date
-//
-//       if (timeOut < 0) return;
-//
-//       newsletter[id] = setTimeout(async () => {
-//         const mail = userNewsletter(users)
-//
-//         await mailSend({table, mail, name})
-//
-//         console.log(`Время пришло!!! ${logics.date} ${logics.time}`)
-//       }, timeOut)
-//     }
-//   },
-//   birthday: {
-//     async init({users, name, table, logics, id}) {
-//       newsletterStop(id)
-//       const mail = userBirthday(users)
-//       await mailSend({table, mail, name})
-//
-//       newsletter[id] = setInterval(async () => {
-//         const mail = userBirthday(users)
-//         await mailSend({table, mail, name})
-//       }, ONE_DAY)
-//     }
-//   },
-//   lastOrder: {
-//     async init({users, name, table, logics, id}) {
-//       newsletterStop(id)
-//       const mail = userLastOrder(users, logics.day)
-//       await mailSend({table, mail, name})
-//
-//       newsletter[id] = setInterval(async () => {
-//         const mail = userLastOrder(users, logics.day)
-//         await mailSend({table, mail, name})
-//       }, ONE_DAY)
-//     }
-//   }
-// }
+const logicsDate = {
+  one: {
+    async init({users, name, table, logics, id}) {
+      newsletterStop(id)
+      console.log('отправляем в ' + logics.date + ' ' + logics.time)
+
+      const dateArr = logics.date.split('.')
+      const timeArr = logics.time.split(':')
+
+      const date = new Date()
+      const dateSend = new Date(dateArr[2], +dateArr[1] - 1, dateArr[0], timeArr[0], timeArr[1])
+      date.setSeconds(0, 0)
+      const timeOut = +dateSend - +date
+
+      if (timeOut < 0) return;
+
+      newsletter[id] = setTimeout(async () => {
+        const mail = userNewsletter(users)
+
+        await mailSend({table, mail, name})
+
+        console.log(`Время пришло!!! ${logics.date} ${logics.time}`)
+      }, timeOut)
+    }
+  },
+  sample: {
+    async init({users, name, table, logics, id}) {
+      newsletterStop(id)
+      console.log('отправляем в ' + logics.date + ' ' + logics.time)
+
+      const dateArr = logics.date.split('.')
+      const timeArr = logics.time.split(':')
+
+      const date = new Date()
+      const dateSend = new Date(dateArr[2], +dateArr[1] - 1, dateArr[0], timeArr[0], timeArr[1])
+      date.setSeconds(0, 0)
+      const timeOut = +dateSend - +date
+
+      console.log(timeOut)
+      if (timeOut < 0) return;
+
+      newsletter[id] = setTimeout(async () => {
+        const mail = userNewsletter(users)
+
+        await mailSend({table, mail, name})
+
+        console.log(`Время пришло!!! ${logics.date} ${logics.time}`)
+      }, timeOut)
+    }
+  },
+  birthday: {
+    async init({users, name, table, logics, id}) {
+      newsletterStop(id)
+      const mail = userBirthday(users)
+      await mailSend({table, mail, name})
+
+      newsletter[id] = setInterval(async () => {
+        const mail = userBirthday(users)
+        await mailSend({table, mail, name})
+      }, ONE_DAY)
+    }
+  },
+  lastOrder: {
+    async init({users, name, table, logics, id}) {
+      newsletterStop(id)
+      const mail = userLastOrder(users, logics.day)
+      await mailSend({table, mail, name})
+
+      newsletter[id] = setInterval(async () => {
+        const mail = userLastOrder(users, logics.day)
+        await mailSend({table, mail, name})
+      }, ONE_DAY)
+    }
+  }
+}
 
 module.exports = createCoreService('api::newsletter.newsletter', {
   async find(ctx) {
@@ -212,7 +239,8 @@ module.exports = createCoreService('api::newsletter.newsletter', {
         region: '1',
         tariff: '1',
         service: '1',
-        subscribers: 'Физ'
+        subscribers: 'Физ',
+        activities: 'yes'
       },
       {
         newsletter: true,
@@ -223,7 +251,8 @@ module.exports = createCoreService('api::newsletter.newsletter', {
         region: '1',
         tariff: '1',
         service: '1',
-        subscribers: 'Физ'
+        subscribers: 'Физ',
+        activities: 'no'
       },
       {
         newsletter: true,
@@ -233,8 +262,9 @@ module.exports = createCoreService('api::newsletter.newsletter', {
         birthday: '21.03.1991',
         region: '1',
         tariff: '1',
-        service: '1',
-        subscribers: 'Юр'
+        service: '2',
+        subscribers: 'Юр',
+        activities: 'yes'
       },
     ]
 
@@ -245,14 +275,6 @@ module.exports = createCoreService('api::newsletter.newsletter', {
       logics: body.action,
       id: ctx.params.id
     })
-
-    // await types[body.action.name].init({
-    //   users,
-    //   name: body.name,
-    //   table: body.data,
-    //   logics: body.action.logics,
-    //   id: ctx.params.id
-    // })
 
     return data
   },
