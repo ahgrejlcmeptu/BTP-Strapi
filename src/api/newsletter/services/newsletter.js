@@ -32,28 +32,16 @@ const userNewsletter = (users) => {
 const userBirthday = (users) => {
   let str = ''
   users.forEach(i => {
+    if (!i.birthday) return;
+
     const date = new Date()
     date.setHours(0, 0, 0, 0)
 
-    const birthdayDate = new Date(i.birthday)
-    birthdayDate.setHours(0, 0, 0, 0)
+    const dateArr = i.birthday.split('.')
+
+    const birthdayDate = new Date(dateArr[2], +dateArr[1] - 1, dateArr[0], 0, 0, 0, 0)
     birthdayDate.setFullYear(date.getFullYear())
-
-    if (i.newsletter && +birthdayDate === +date) str = str + i.mail + ', '
-  })
-  return str
-}
-const userLastOrder = (users, day) => {
-  let str = ''
-  users.forEach(i => {
-    const date = new Date()
-    date.setHours(0, 0, 0, 0)
-
-    const oldDate = new Date(i.lastOrder)
-    oldDate.setDate(oldDate.getDate() + +day)
-    oldDate.setHours(0, 0, 0, 0)
-
-    if (+oldDate === +date) str = str + i.mail + ', '
+    if (+birthdayDate === +date) str = str + i.mail + ', '
   })
   return str
 }
@@ -101,7 +89,6 @@ const filterUsers = (users, logics) => {
     "region": logics.region,
     "tariff": logics.tariff,
     "service": logics.service,
-    // "serviceOn": logics.serviceOn,
     "activities": logics.activities,
     "subscribers": logics.subscribers
   }
@@ -137,7 +124,7 @@ const logicsDate = {
   one: {
     async init({users, name, table, logics, id}) {
       newsletterStop(id)
-      console.log('отправляем в ' + logics.date + ' ' + logics.time)
+      console.log('Отправка в дату! отправляем в ' + logics.date + ' ' + logics.time)
 
       const dateArr = logics.date.split('.')
       const timeArr = logics.time.split(':')
@@ -155,58 +142,67 @@ const logicsDate = {
         await mailSend({table, mail, name})
 
         console.log(`Время пришло!!! ${logics.date} ${logics.time}`)
+      }, timeOut)
+    }
+  },
+  periodic: {
+    async init({users, name, table, logics, id}) {
+      newsletterStop(id)
+      console.log('Отправка по периоду! отправляем в ' + logics.date + ' ' + logics.time)
+
+      const dateArr = logics.begin.split('.')
+      const timeArr = logics.time.split(':')
+
+      const date = new Date()
+      const dateSend = new Date(dateArr[2], +dateArr[1] - 1, dateArr[0], timeArr[0], timeArr[1])
+      date.setSeconds(0, 0)
+
+      const dayValue = (dateSend.getDay() || 7) - logics.day
+      dateSend.setDate(dateSend.getDate() - (dayValue > 0 ? dayValue - 7 : dayValue))
+      let timeOut = +dateSend - +date
+      if (timeOut < 0) {
+        dateSend.setDate(dateSend.getDate() + 7);
+        timeOut = +dateSend - +date
+      }
+
+      newsletter[id] = setTimeout(async function tick() {
+        const mail = userNewsletter(users)
+
+        await mailSend({table, mail, name})
+
+        console.log(`Отправка по периоду! Время пришло!!! ${logics.date} ${logics.time}`)
+        const timeOut = new Date()
+
+        if (logics.periodic === '0') timeOut.setDate(timeOut.getDate() + 7)
+        if (logics.periodic === '1') timeOut.setMonth(timeOut.getMonth() + 1)
+        if (logics.periodic === '2') timeOut.setFullYear(timeOut.getFullYear() + 1)
+
+        newsletter[id] = setTimeout(tick, timeOut - new Date());
       }, timeOut)
     }
   },
   sample: {
     async init({users, name, table, logics, id}) {
       newsletterStop(id)
-      console.log('отправляем в ' + logics.date + ' ' + logics.time)
 
-      const dateArr = logics.date.split('.')
-      const timeArr = logics.time.split(':')
-
-      const date = new Date()
-      const dateSend = new Date(dateArr[2], +dateArr[1] - 1, dateArr[0], timeArr[0], timeArr[1])
-      date.setSeconds(0, 0)
-      const timeOut = +dateSend - +date
-
-      console.log(timeOut)
-      if (timeOut < 0) return;
-
-      newsletter[id] = setTimeout(async () => {
-        const mail = userNewsletter(users)
-
-        await mailSend({table, mail, name})
-
-        console.log(`Время пришло!!! ${logics.date} ${logics.time}`)
-      }, timeOut)
-    }
-  },
-  birthday: {
-    async init({users, name, table, logics, id}) {
-      newsletterStop(id)
-      const mail = userBirthday(users)
-      await mailSend({table, mail, name})
-
-      newsletter[id] = setInterval(async () => {
+      if (logics.birthdays) {
         const mail = userBirthday(users)
         await mailSend({table, mail, name})
-      }, ONE_DAY)
+
+        newsletter[id] = setInterval(async () => {
+          const mail = userBirthday(users)
+          await mailSend({table, mail, name})
+        }, ONE_DAY)
+      }
+
+      if (logics.news) {
+
+      }
+      if (logics.stock) {
+
+      }
     }
   },
-  lastOrder: {
-    async init({users, name, table, logics, id}) {
-      newsletterStop(id)
-      const mail = userLastOrder(users, logics.day)
-      await mailSend({table, mail, name})
-
-      newsletter[id] = setInterval(async () => {
-        const mail = userLastOrder(users, logics.day)
-        await mailSend({table, mail, name})
-      }, ONE_DAY)
-    }
-  }
 }
 
 module.exports = createCoreService('api::newsletter.newsletter', {
@@ -235,37 +231,37 @@ module.exports = createCoreService('api::newsletter.newsletter', {
         id: '1',
         lastOrder: '10.03.2024',
         mail: 'bgblllhuk@gmail.com',
-        birthday: '21.03.1991',
+        birthday: '20.06.1991',
         region: '1',
         tariff: '1',
         service: '1',
         subscribers: 'Физ',
         activities: 'yes'
       },
-      {
-        newsletter: true,
-        id: '2',
-        lastOrder: '10.03.2024',
-        mail: 'bgblllhuk@gmail.com',
-        birthday: '21.03.1991',
-        region: '1',
-        tariff: '1',
-        service: '1',
-        subscribers: 'Физ',
-        activities: 'no'
-      },
-      {
-        newsletter: true,
-        id: '3',
-        lastOrder: '10.03.2024',
-        mail: 'bgblllhuk@gmail.com',
-        birthday: '21.03.1991',
-        region: '1',
-        tariff: '1',
-        service: '2',
-        subscribers: 'Юр',
-        activities: 'yes'
-      },
+      // {
+      //   newsletter: true,
+      //   id: '2',
+      //   lastOrder: '10.03.2024',
+      //   mail: 'bgblllhuk@gmail.com',
+      //   birthday: '21.03.1991',
+      //   region: '1',
+      //   tariff: '1',
+      //   service: '1',
+      //   subscribers: 'Физ',
+      //   activities: 'no'
+      // },
+      // {
+      //   newsletter: true,
+      //   id: '3',
+      //   lastOrder: '10.03.2024',
+      //   mail: 'bgblllhuk@gmail.com',
+      //   birthday: '21.03.1991',
+      //   region: '1',
+      //   tariff: '1',
+      //   service: '2',
+      //   subscribers: 'Юр',
+      //   activities: 'yes'
+      // },
     ]
 
     await types[body.action.type].init({

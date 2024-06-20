@@ -65,3 +65,7 @@ nano server.js
 const strapi = require('@strapi/strapi');
 strapi(/* {...} */).start();
 NODE_ENV=production pm2 start server.js --name api
+TODO
+1. Сохранять статус запуска в базе
+2. При перезагрузке сервера запускать заново отправку
+3. Пользователей выгружать отдельно перед самой отправкой
