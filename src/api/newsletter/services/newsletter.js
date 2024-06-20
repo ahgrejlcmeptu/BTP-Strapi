@@ -1,6 +1,5 @@
 'use strict';
 const nodemailer = require("nodemailer");
-const fs = require("fs");
 
 let transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST, port: process.env.SMTP_PORT, secure: true,  // 465 true all false
@@ -9,6 +8,44 @@ let transporter = nodemailer.createTransport({
   },
 });
 
+const TEST_USERS = [
+  {
+    newsletter: true,
+    id: '1',
+    lastOrder: '10.03.2024',
+    mail: 'bgblllhuk@gmail.com',
+    birthday: '20.06.1991',
+    region: '1',
+    tariff: '1',
+    service: '1',
+    subscribers: 'Физ',
+    activities: 'yes'
+  },
+  // {
+  //   newsletter: true,
+  //   id: '2',
+  //   lastOrder: '10.03.2024',
+  //   mail: 'bgblllhuk@gmail.com',
+  //   birthday: '21.03.1991',
+  //   region: '1',
+  //   tariff: '1',
+  //   service: '1',
+  //   subscribers: 'Физ',
+  //   activities: 'no'
+  // },
+  // {
+  //   newsletter: true,
+  //   id: '3',
+  //   lastOrder: '10.03.2024',
+  //   mail: 'bgblllhuk@gmail.com',
+  //   birthday: '21.03.1991',
+  //   region: '1',
+  //   tariff: '1',
+  //   service: '2',
+  //   subscribers: 'Юр',
+  //   activities: 'yes'
+  // },
+]
 const ONE_DAY = 1000 * 60 * 24
 const newsletter = {}
 
@@ -67,13 +104,7 @@ const types = {
       const usersList = filterUsers(users, logics)
       const details = logics.details
 
-
       logicsDate[logics.date].init({users: usersList, name, table, logics: details, id})
-
-      // const mail = userNewsletter(users)
-      //
-      // await mailSend({table, mail, name})
-      // console.log('отправляем сейчас на' + mail)
     }
   },
 }
@@ -218,62 +249,6 @@ module.exports = createCoreService('api::newsletter.newsletter', {
     const data = await strapi.entityService.findOne('api::newsletter.newsletter', ctx.params.id);
     return data
   },
-  async action(ctx) {
-    console.log('пробуем отправить')
-    const data = await strapi.entityService.update('api::newsletter.newsletter', ctx.params.id, {
-      data: ctx.request.body
-    });
-
-    const body = ctx.request.body
-    const users = [
-      {
-        newsletter: true,
-        id: '1',
-        lastOrder: '10.03.2024',
-        mail: 'bgblllhuk@gmail.com',
-        birthday: '20.06.1991',
-        region: '1',
-        tariff: '1',
-        service: '1',
-        subscribers: 'Физ',
-        activities: 'yes'
-      },
-      // {
-      //   newsletter: true,
-      //   id: '2',
-      //   lastOrder: '10.03.2024',
-      //   mail: 'bgblllhuk@gmail.com',
-      //   birthday: '21.03.1991',
-      //   region: '1',
-      //   tariff: '1',
-      //   service: '1',
-      //   subscribers: 'Физ',
-      //   activities: 'no'
-      // },
-      // {
-      //   newsletter: true,
-      //   id: '3',
-      //   lastOrder: '10.03.2024',
-      //   mail: 'bgblllhuk@gmail.com',
-      //   birthday: '21.03.1991',
-      //   region: '1',
-      //   tariff: '1',
-      //   service: '2',
-      //   subscribers: 'Юр',
-      //   activities: 'yes'
-      // },
-    ]
-
-    await types[body.action.type].init({
-      users,
-      name: body.name,
-      table: body.data,
-      logics: body.action,
-      id: ctx.params.id
-    })
-
-    return data
-  },
   async create(ctx) {
     const entry = ctx.request.body
 
@@ -284,6 +259,24 @@ module.exports = createCoreService('api::newsletter.newsletter', {
     const entry = ctx.request.body
 
     const data = await strapi.entityService.update('api::newsletter.newsletter', ctx.params.id, {data: entry.body});
+    return data
+  },
+  async action(ctx) {
+    console.log('пробуем отправить')
+    const data = await strapi.entityService.update('api::newsletter.newsletter', ctx.params.id, {
+      data: ctx.request.body
+    });
+
+    const body = ctx.request.body
+
+    await types[body.action.type].init({
+      users: TEST_USERS,
+      name: body.name,
+      table: body.data,
+      logics: body.action,
+      id: ctx.params.id
+    })
+
     return data
   },
 });

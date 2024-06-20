@@ -26,6 +26,10 @@
     },
     "img": {
       "type": "text"
+    },
+    "active": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
