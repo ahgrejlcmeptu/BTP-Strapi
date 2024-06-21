@@ -1,5 +1,9 @@
 'use strict';
 
+const sendNewsletter = (list) => {
+  console.log(list)
+}
+
 module.exports = {
   /**
    * An asynchronous register function that runs before
@@ -7,9 +11,7 @@ module.exports = {
    *
    * This gives you an opportunity to extend code.
    */
-  register({strapi}) {
-    // const extensionService = strapi.plugin('graphql').service('extension');
-  },
+  register({strapi}) {},
 
   /**
    * An asynchronous bootstrap function that runs before
@@ -18,5 +20,20 @@ module.exports = {
    * This gives you an opportunity to set up your data model,
    * run jobs, or perform some special logic.
    */
-  bootstrap(/*{ strapi }*/) {},
+  async bootstrap({ strapi }) {
+    const data = await strapi.query('api::newsletter.newsletter').findMany({
+      active: true
+    })
+    const dataFilter = data.map(item => {
+      return {
+        id: item.id,
+        name: item.name,
+        description: item.description,
+        action: item.action,
+        table: item.data.table
+      }
+    })
+    sendNewsletter(dataFilter)
+  },
 };
+

@@ -89,32 +89,6 @@ const userBirthday = (users) => {
 
 const {createCoreService} = require('@strapi/strapi').factories;
 
-const types = {
-  test: {
-    async init({users, name, table, logics, id}) {
-      newsletterStop(id)
-
-      await mailSend({table, mail: ['bgblllhuk@gmail.com'], name})
-      console.log('отправляем тестовый на ' + logics.list)
-    }
-  },
-  base: {
-    async init({users, name, table, logics, id}) {
-      newsletterStop(id)
-      const usersList = filterUsers(users, logics)
-      const details = logics.details
-
-      logicsDate[logics.date].init({users: usersList, name, table, logics: details, id})
-    }
-  },
-}
-
-const filterDate = {
-  one: {},
-  periodic: {},
-  sample: {}
-}
-
 const filterUsers = (users, logics) => {
   const filterLogics = {
     "region": logics.region,
@@ -151,6 +125,25 @@ const filterUsers = (users, logics) => {
   })
 }
 
+const types = {
+  test: {
+    async init({users, name, table, logics, id}) {
+      newsletterStop(id)
+
+      await mailSend({table, mail: ['bgblllhuk@gmail.com'], name})
+      console.log('отправляем тестовый на ' + logics.list)
+    }
+  },
+  base: {
+    async init({users, name, table, logics, id}) {
+      newsletterStop(id)
+      const usersList = filterUsers(users, logics)
+      const details = logics.details
+
+      logicsDate[logics.date].init({users: usersList, name, table, logics: details, id})
+    }
+  },
+}
 const logicsDate = {
   one: {
     async init({users, name, table, logics, id}) {
