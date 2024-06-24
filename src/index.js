@@ -6,8 +6,9 @@ module.exports = {
   register({strapi}) {},
   async bootstrap({ strapi }) {
     const data = await strapi.query('api::newsletter.newsletter').findMany({
-      active: true
+      filters: { active: true }
     })
+
     const dataFilter = data.map(item => {
       return {
         id: item.id,
@@ -17,7 +18,6 @@ module.exports = {
         table: item.data
       }
     })
-
     newsletterStart(dataFilter)
   }
 };

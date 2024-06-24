@@ -262,6 +262,12 @@ module.exports = {
       id
     })
   },
-  newsletterStop: id => newsletterStop(id)
+  newsletterStop: id => newsletterStop(id),
+  async getUsers(body) {
+    let users = await loadUsers()
+    users = filterUsers(users, body)
+    if (body.details.birthdays) users = userBirthday(users)
+    return users.length
+  }
 }
 

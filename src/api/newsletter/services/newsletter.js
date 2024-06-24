@@ -1,5 +1,5 @@
 'use strict';
-const {newsletterSend, newsletterStop} = require("../../../admin/newsletter");
+const {newsletterSend, newsletterStop, getUsers} = require("../../../admin/newsletter");
 /**
  * newsletter service
  */
@@ -50,5 +50,11 @@ module.exports = createCoreService('api::newsletter.newsletter', {
     newsletterSend(body, ctx.params.id)
 
     return data
+  },
+  async users(ctx) {
+    const body = ctx.request.body
+    const value = await getUsers(body)
+
+    return value
   },
 });

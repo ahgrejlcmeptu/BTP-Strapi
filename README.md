@@ -65,6 +65,7 @@ nano server.js
 const strapi = require('@strapi/strapi');
 strapi(/* {...} */).start();
 NODE_ENV=production pm2 start server.js --name api
+
 TODO
-4. получать количество пользователей при изменении для отображения
-5. id для отписки пользователя в письмо
+1. получать количество пользователей при изменении для отображения
+2. link news
