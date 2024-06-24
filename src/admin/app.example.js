@@ -35,5 +35,5 @@ const bootstrap = (app) => {
 
 export default {
   config,
-  bootstrap,
+  bootstrap
 };
