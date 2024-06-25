@@ -66,6 +66,3 @@ const strapi = require('@strapi/strapi');
 strapi(/* {...} */).start();
 NODE_ENV=production pm2 start server.js --name api
 
-TODO
-1. получать количество пользователей при изменении для отображения
-2. link news

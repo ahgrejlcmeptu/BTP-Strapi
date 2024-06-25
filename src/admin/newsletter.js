@@ -55,18 +55,10 @@ const newsletterStop = (id) => {
 }
 const mailSend = async ({table, mail, user, name, description}) => {
   const html = table.table.replace('/mail/delete', `http://localhost:5173/mail/delete/${user?.id}`);
-  if (user) {
-    await transporter.sendMail({
-      from: `"${name}" <${process.env.DEFAULT_EMAIL}>`,
-      to: user.mail,
-      subject: description,
-      html: html
-    });
-    return
-  }
+
   await transporter.sendMail({
     from: `"${name}" <${process.env.DEFAULT_EMAIL}>`,
-    to: mail,
+    to: mail || user.mail,
     subject: description,
     html: html
   });
@@ -78,7 +70,7 @@ const types = {
       newsletterStop(id)
 
       await mailSend({table, mail: ['bgblllhuk@gmail.com'], name, description})
-      console.log('отправляем тестовый на ' + logics.list)
+      console.log('отправляем')
     }
   },
   base: {
@@ -94,8 +86,8 @@ const logicsDate = {
       newsletterStop(id)
       console.log('Отправка в дату! отправляем в ' + logics.details.date + ' ' + logics.details.time)
 
-      const dateArr = logics.details.date.split('.')
-      const timeArr = logics.details.time.split(':')
+      const dateArr = logics.details.date ? logics.details.date.split('.') : [0, 0]
+      const timeArr = logics.details.time ? logics.details.time.split(':') : [0, 0]
 
       const date = new Date()
       const dateSend = new Date(dateArr[2], +dateArr[1] - 1, dateArr[0], timeArr[0], timeArr[1])
@@ -122,8 +114,8 @@ const logicsDate = {
       newsletterStop(id)
       console.log('Отправка по периоду! отправляем в ' + logics.details.date + ' ' + logics.details.time)
 
-      const dateArr = logics.details.begin.split('.')
-      const timeArr = logics.details.time.split(':')
+      const dateArr = logics.details.date ? logics.details.date.split('.') : [0, 0]
+      const timeArr = logics.details.time ? logics.details.time.split(':') : [0, 0]
 
       const date = new Date()
       const dateSend = new Date(dateArr[2], +dateArr[1] - 1, dateArr[0], timeArr[0], timeArr[1])
