@@ -8,17 +8,38 @@ const { createCoreService } = require('@strapi/strapi').factories;
 
 module.exports = createCoreService('api::jwt-token.jwt-token', {
     async login(ctx) {
-        let response = await fetch('https://docs.bteleport.ru/api/lk/auth', {
-          method: 'POST',
-          body: JSON.stringify({
-            "login": "lolo1",
-            "password": "12345"
-          })
-        });
+        console.log(666);
+        const response = await fetch('https://docs.bteleport.ru/api/lk/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify({
+                "login": "lolo1",
+                "password": "12345"
+            })
+        })
+        const data = await response.json()
 
-        let result = await response.json();
+        return data
 
-        return result
+        // let response = await fetch('https://docs.bteleport.ru/login', {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json;charset=utf-8'
+        //   },
+        //   body: JSON.stringify({
+        //     "login": "lolo1",
+        //     "password": "12345"
+        //   })
+        // });
+        // console.log(555);
+
+        // let result = await response.json();
+
+        // console.log(result);
+
+        // return result
     },
     async logout(ctx) {
         return 'logout'
