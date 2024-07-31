@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "jwt_tokens",
+  "info": {
+    "singularName": "jwt-token",
+    "pluralName": "jwt-tokens",
+    "displayName": "JWT-Token"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    }
+  }
+}

@@ -1130,6 +1130,36 @@ export interface ApiHomePageHomePage extends Schema.SingleType {
   };
 }
 
+export interface ApiJwtTokenJwtToken extends Schema.CollectionType {
+  collectionName: 'jwt_tokens';
+  info: {
+    singularName: 'jwt-token';
+    pluralName: 'jwt-tokens';
+    displayName: 'JWT-Token';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::jwt-token.jwt-token',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::jwt-token.jwt-token',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiNewsletterNewsletter extends Schema.CollectionType {
   collectionName: 'newsletters';
   info: {
@@ -1461,6 +1491,7 @@ declare module '@strapi/types' {
       'api::help.help': ApiHelpHelp;
       'api::help-category.help-category': ApiHelpCategoryHelpCategory;
       'api::home-page.home-page': ApiHomePageHomePage;
+      'api::jwt-token.jwt-token': ApiJwtTokenJwtToken;
       'api::newsletter.newsletter': ApiNewsletterNewsletter;
       'api::personal-page.personal-page': ApiPersonalPagePersonalPage;
       'api::question.question': ApiQuestionQuestion;
