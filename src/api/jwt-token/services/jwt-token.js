@@ -9,14 +9,14 @@ const { createCoreService } = require('@strapi/strapi').factories;
 module.exports = createCoreService('api::jwt-token.jwt-token', {
     async login(ctx) {
         console.log(666);
-        const response = await fetch('https://docs.bteleport.ru/api/lk/auth/login', {
+        const response = await fetch('https://lk.bteleport.ru/lk/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify({
-                "login": "lolo1",
-                "password": "12345"
+                login: "lolo1",
+                password: "12345"                
             })
         })
         const data = await response.json()
